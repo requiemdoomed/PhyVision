@@ -2,7 +2,7 @@
   <img src="web/assets/logo.svg" width="96" alt="PhyVision logo">
 </p>
 
-<h1 align="center">[PhyVision](https://requiemdoomed.github.io/PhyVision/)</h1>
+<h1 align="center">PhyVision</h1>
 
 <p align="center">
   <strong>Human physique classification from a single photo, with a fitness guide for every result.</strong><br>
