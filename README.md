@@ -20,7 +20,7 @@
 
 ---
 
-PhyVision looks at a photo of one person, cuts the person out of the background, measures the shape of their silhouette and classifies the physique as **Athletic**, **Normal**, **Obese** or **Skinny**. Every result comes with class probabilities, the detected photo framing, a photo check against the photo guide, proportion estimates (shoulder-to-waist, waist-to-hip, shown when both arms are held away from the body) and a **fitness guide** for that body type: goals, a sample training week, key exercises, nutrition advice, a sample day of eating, recovery habits and safety notes.
+## [PhyVision](https://requiemdoomed.github.io/PhyVision/) looks at a photo of one person, cuts the person out of the background, measures the shape of their silhouette and classifies the physique as **Athletic**, **Normal**, **Obese** or **Skinny**. Every result comes with class probabilities, the detected photo framing, a photo check against the photo guide, proportion estimates (shoulder-to-waist, waist-to-hip, shown when both arms are held away from the body) and a **fitness guide** for that body type: goals, a sample training week, key exercises, nutrition advice, a sample day of eating, recovery habits and safety notes.
 
 <p align="center">
   <img src="docs/images/demo_people.png" alt="The demo people with their PhyVision predictions" width="100%">
