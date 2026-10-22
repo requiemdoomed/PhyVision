@@ -28,23 +28,6 @@ It is the rebuilt, advanced version of the *Human Physique Identifier* v4.0 (COS
   <img src="docs/images/demo_people.png" alt="The demo people with their PhyVision predictions" width="100%">
 </p>
 
-## Contents
-
-- [Highlights](#highlights)
-- [Quick start](#quick-start)
-- [Taking the photo](#taking-the-photo)
-- [Using the app](#using-the-app)
-- [How it works](#how-it-works)
-- [Dataset](#dataset)
-- [Results](#results)
-- [Project structure](#project-structure)
-- [Rebuild from scratch](#rebuild-from-scratch)
-- [Limitations and responsible use](#limitations-and-responsible-use)
-- [Version history](#version-history)
-- [AI assistance](#ai-assistance)
-- [Citation](#citation)
-- [License](#license)
-
 ## Highlights
 
 - **16,000-image AI-generated dataset** (2,000 train, 1,000 validation, 1,000 test per class) with exact labels and pixel-perfect masks, covering many poses (arms down or out, hands on hips, hand in pocket, bicep flex, raised arm), slight body turns, and photo framings from head-to-feet down to waist-up.
