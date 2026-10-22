@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Photo guide | PhyVision</title>
+<meta name="description" content="How to take a photo that PhyVision can classify reliably: framing, aspect ratio, pose, clothing, background and lighting.">
+<meta name="author" content="Swayam Shakya">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/phyvision.css">
+<script src="assets/static_data.js"></script>
+<script src="assets/phyvision.js"></script>
+</head>
+<body>
+<a class="sr-only" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="../index.html" aria-label="PhyVision home">
+      <img src="assets/logo.svg" alt="" width="30" height="30">
+      <span>PhyVision <small>by Swayam Shakya</small></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="../index.html">Control center</a>
+      <a href="app.html">Analyze a photo</a>
+      <a href="photo-guide.html" aria-current="page">Photo guide</a>
+      <a href="guides.html">Fitness guides</a>
+    </nav>
+    <button class="theme-btn" type="button" data-theme-toggle>Dark mode</button>
+  </div>
+</header>
+
+<main id="main" class="wrap" style="padding-top:36px;padding-bottom:56px">
+  <div class="grid-2" style="align-items:center">
+    <div>
+      <h1 style="font-size:clamp(2rem,4.5vw,3.2rem)">Take a photo PhyVision can read</h1>
+      <p class="lede muted" style="font-size:1.1rem">PhyVision classifies the outline of your body. The closer your photo is to the one in the diagram, the cleaner that outline and the more reliable the result.</p>
+      <div class="notice"><strong>In one sentence:</strong> a portrait photo of one person standing straight and facing the camera, head to feet in frame, arms slightly away from the body, in fitted clothes, against a plain background.</div>
+      <p><a class="btn primary" href="app.html">Analyze a photo</a></p>
+    </div>
+    <div class="panel" style="display:grid;place-items:center">
+      <div id="diagram" style="width:100%;max-width:360px"></div>
+    </div>
+  </div>
+
+  <section style="padding-top:40px">
+    <h2>The numbers</h2>
+    <div class="table-wrap panel">
+      <table>
+        <caption class="sr-only">Photo requirements</caption>
+        <thead><tr><th>Setting</th><th>Best</th><th>Accepted</th><th>Avoid</th></tr></thead>
+        <tbody>
+          <tr><td>Orientation and aspect ratio (width : height)</td><td>Portrait 2:3 (0.67) or 3:4 (0.75)</td><td>0.60 to 0.95</td><td>Square or landscape</td></tr>
+          <tr><td>Image size</td><td>1000 px tall or more</td><td>400 px tall or more</td><td>Under 300 px</td></tr>
+          <tr><td>Person's height in the photo</td><td>80 to 90% of the photo height</td><td>70 to 95%</td><td>Under 50%</td></tr>
+          <tr><td>Space above the head</td><td>5 to 10% of the height</td><td>Any, as long as the head is not cut</td><td>Head cut off</td></tr>
+          <tr><td>How much of the body</td><td>Head to feet</td><td>Head to knees or mid-thigh</td><td>Waist up only</td></tr>
+          <tr><td>Position</td><td>Centred, arms inside the frame</td><td>Slightly off centre</td><td>Body touching the edge</td></tr>
+          <tr><td>Camera distance and height</td><td>2 to 3 m away, at waist or chest height, phone held upright</td><td>Rear camera with a timer or a friend</td><td>Close-up selfie or mirror selfie (distorts proportions)</td></tr>
+          <tr><td>File</td><td>JPG or PNG, or a PNG with the background already removed</td><td>WebP, up to 20 MB</td><td>Screenshots with text, collages</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>How much of the body to include</h2>
+    <p class="muted">PhyVision estimates how much of your body is in the photo and adjusts for it. Head to feet is still the most reliable. Accuracy figures are from PhyVision's held-out test photos, with the person cut out automatically.</p>
+    <div class="framing-row" id="framingRow"></div>
+  </section>
+
+  <section>
+    <h2>Pose, clothing, background and light</h2>
+    <div class="rules">
+      <div class="rule"><h3>Pose</h3><ul>
+        <li>Stand straight, facing the camera.</li>
+        <li>Feet about hip-width apart.</li>
+        <li>Arms relaxed and 10 to 20 cm away from your sides, so the gap between arm and waist is visible.</li>
+        <li>Also supported: hands on hips, hand in pocket, a bicep flex, one arm raised.</li></ul></div>
+      <div class="rule"><h3>Clothing</h3><ul>
+        <li>Fitted clothes: sportswear, a T-shirt, leggings or shorts. Shirtless is fine.</li>
+        <li>Avoid coats, hoodies, loose dresses, bags and anything that hides your outline.</li>
+        <li>Clothes that contrast with the background help the cut-out.</li></ul></div>
+      <div class="rule"><h3>Background</h3><ul>
+        <li>A plain wall or door, ideally light and evenly coloured.</li>
+        <li>No other people, mirrors, pets or furniture touching you.</li>
+        <li>Stand a step away from the wall to avoid a hard shadow.</li></ul></div>
+      <div class="rule"><h3>Light and editing</h3><ul>
+        <li>Even light from the front, such as facing a window.</li>
+        <li>Avoid standing in front of a bright window (backlit).</li>
+        <li>No filters, body-shaping edits, stickers or text over the body.</li></ul></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Quick checklist</h2>
+    <div class="do-dont">
+      <div class="panel do"><h3>Do</h3><ul>
+        <li>Portrait photo, about 2:3 or 3:4</li>
+        <li>One person, whole body, head to feet</li>
+        <li>Facing the camera, standing straight</li>
+        <li>Arms slightly away from the body</li>
+        <li>Fitted clothes, plain background, even light</li>
+        <li>Camera 2 to 3 m away at waist height</li></ul></div>
+      <div class="panel dont"><h3>Avoid</h3><ul>
+        <li>Landscape or square photos</li>
+        <li>Group photos or people in the background</li>
+        <li>Side, back, sitting, lying or bending poses</li>
+        <li>Arms crossed or held tight against the body</li>
+        <li>Baggy clothing, coats, bags</li>
+        <li>Close-up and mirror selfies, filters</li></ul></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>What PhyVision checks for you</h2>
+    <p class="muted">Every result includes a photo check. Green items match the guide, amber items lower confidence a little, and red items make the result unreliable.</p>
+    <div class="rules">
+      <div class="rule"><h3>Resolution</h3><p>At least 400 px tall.</p></div>
+      <div class="rule"><h3>Orientation</h3><p>Portrait, width:height below 0.95.</p></div>
+      <div class="rule"><h3>One person</h3><p>Only one body-sized shape is found.</p></div>
+      <div class="rule"><h3>Background</h3><p>The person was separated from the background.</p></div>
+      <div class="rule"><h3>Person size</h3><p>The body fills at least 70% of the photo height.</p></div>
+      <div class="rule"><h3>Head in frame</h3><p>The head is not cut off at the top.</p></div>
+      <div class="rule"><h3>Centred</h3><p>The body is near the middle and not touching the sides.</p></div>
+      <div class="rule"><h3>Framing</h3><p>The model's estimate of how much of the body is visible.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Privacy</h2>
+    <p class="muted">When you run PhyVision yourself, photos are processed on your own computer by the local server and are not uploaded anywhere else. Only analyze photos of yourself or of people who have agreed.</p>
+  </section>
+</main>
+
+<footer><div class="wrap"><div><strong>PhyVision</strong> by Swayam Shakya. MIT License.</div></div></footer>
+
+<script>
+(async function () {
+  document.getElementById("diagram").innerHTML = PV.frameDiagram();
+  const m = await PV.metrics().catch(() => null);
+  const acc = m && m.photo_pipeline_rembg && m.photo_pipeline_rembg.by_framing;
+  document.getElementById("framingRow").innerHTML = PV.framingStrip(acc);
+})();
+</script>
+</body>
+</html>

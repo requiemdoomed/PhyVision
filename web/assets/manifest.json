@@ -1,0 +1,150 @@
+[
+ {
+  "path": "index.html",
+  "role": "Main control center: system status, model performance, dataset, files and run instructions"
+ },
+ {
+  "path": "web/app.html",
+  "role": "PhyVision analyzer: upload a photo or pick a demo person, see the class, proportions and fitness guide"
+ },
+ {
+  "path": "web/photo-guide.html",
+  "role": "How to take a photo PhyVision can read: framing, aspect ratio, pose, clothing, background, light"
+ },
+ {
+  "path": "web/guides.html",
+  "role": "Fitness guide library for the four physique classes"
+ },
+ {
+  "path": "app.py",
+  "role": "Flask web server and JSON API (/api/status, /api/classify, /api/demos, /api/metrics, ...)"
+ },
+ {
+  "path": "notebooks/PhyVision.ipynb",
+  "role": "End-to-end notebook: dataset, training, evaluation, inference and guides (runs in Jupyter or Colab)"
+ },
+ {
+  "path": "src/phyvision/synth.py",
+  "role": "Procedural human renderer that generates the AI-made physique dataset"
+ },
+ {
+  "path": "src/phyvision/silhouette.py",
+  "role": "Person segmentation (rembg / GrabCut / alpha), silhouette normalisation and shape measurements"
+ },
+ {
+  "path": "src/phyvision/model.py",
+  "role": "PhyNet: ResNet-18 silhouette branch fused with a shape-profile MLP"
+ },
+ {
+  "path": "src/phyvision/dataset.py",
+  "role": "PyTorch dataset with segmentation-error augmentation"
+ },
+ {
+  "path": "src/phyvision/train.py",
+  "role": "Stage 1 training on exact masks (AdamW, one-cycle cosine schedule, label smoothing)"
+ },
+ {
+  "path": "src/phyvision/finetune.py",
+  "role": "Stage 2 fine-tuning on masks cut out by rembg and GrabCut"
+ },
+ {
+  "path": "src/phyvision/evaluate.py",
+  "role": "Test-set evaluation and report figures"
+ },
+ {
+  "path": "src/phyvision/inference.py",
+  "role": "Predictor API used by the web app, notebook and command line"
+ },
+ {
+  "path": "src/phyvision/integrity.py",
+  "role": "MD5 training-image integrity check"
+ },
+ {
+  "path": "src/phyvision/guides.py",
+  "role": "Loads fitness guide content"
+ },
+ {
+  "path": "src/phyvision/config.py",
+  "role": "Paths, class names and sizes"
+ },
+ {
+  "path": "scripts/generate_dataset.py",
+  "role": "Builds the 16,000-image dataset"
+ },
+ {
+  "path": "scripts/train.py",
+  "role": "Trains PhyNet (stage 1)"
+ },
+ {
+  "path": "scripts/build_segmenter_masks.py",
+  "role": "Cuts dataset photos out with rembg / GrabCut for stage 2"
+ },
+ {
+  "path": "scripts/finetune.py",
+  "role": "Fine-tunes PhyNet on segmenter masks (stage 2)"
+ },
+ {
+  "path": "scripts/evaluate.py",
+  "role": "Evaluates on the test split and writes reports/"
+ },
+ {
+  "path": "scripts/predict.py",
+  "role": "Command-line classification of a single image"
+ },
+ {
+  "path": "scripts/make_demos.py",
+  "role": "Renders the named demo people"
+ },
+ {
+  "path": "scripts/build_hash_db.py",
+  "role": "Builds the MD5 training-image database"
+ },
+ {
+  "path": "scripts/build_static.py",
+  "role": "Builds offline data for the HTML pages"
+ },
+ {
+  "path": "web/assets/guides.json",
+  "role": "Fitness guide content for every class"
+ },
+ {
+  "path": "models/phyvision_phynet.pt",
+  "role": "Trained PhyNet weights"
+ },
+ {
+  "path": "models/train_hashes.json",
+  "role": "MD5 fingerprints of training images"
+ },
+ {
+  "path": "reports/metrics.json",
+  "role": "Test metrics, per-class scores and confusion matrices"
+ },
+ {
+  "path": "data/phyvision_dataset/",
+  "role": "The dataset: train / val / test folders, one per class, with masks and metadata.csv"
+ },
+ {
+  "path": "docs/MODEL_CARD.md",
+  "role": "Model card: intended use, data, metrics and limitations"
+ },
+ {
+  "path": "docs/DATASET_CARD.md",
+  "role": "Dataset card: how the images were generated"
+ },
+ {
+  "path": "docs/HumanPhysique_FinalReport_v4.pdf",
+  "role": "Original v4.0 course report (the project PhyVision grew from)"
+ },
+ {
+  "path": "legacy/HumanBodyIdentifier_v4_original.ipynb",
+  "role": "Original v4.0 Colab notebook, kept for reference"
+ },
+ {
+  "path": "README.md",
+  "role": "Project overview and setup"
+ },
+ {
+  "path": "LICENSE",
+  "role": "MIT License"
+ }
+]

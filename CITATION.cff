@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: "If you use PhyVision, please cite it as below."
+title: "PhyVision: Silhouette-Based Human Physique Classification with Fitness Guidance"
+authors:
+  - family-names: Shakya
+    given-names: Swayam
+    affiliation: Algoma University
+version: 5.1.0
+date-released: 2026-10-21
+license: MIT
+keywords:
+  - computer vision
+  - body shape classification
+  - synthetic data
+  - ResNet-18
+  - PyTorch

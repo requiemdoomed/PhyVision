@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Analyze a photo | PhyVision</title>
+<meta name="author" content="Swayam Shakya">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/phyvision.css">
+<script src="assets/static_data.js"></script>
+<script src="assets/phyvision.js"></script>
+</head>
+<body>
+<a class="sr-only" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="../index.html" aria-label="PhyVision home">
+      <img src="assets/logo.svg" alt="" width="30" height="30">
+      <span>PhyVision <small>by Swayam Shakya</small></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="../index.html">Control center</a>
+      <a href="app.html" aria-current="page">Analyze a photo</a>
+      <a href="photo-guide.html">Photo guide</a>
+      <a href="guides.html">Fitness guides</a>
+    </nav>
+    <button class="theme-btn" type="button" data-theme-toggle>Dark mode</button>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <div class="analyzer">
+    <aside>
+      <h1 style="font-size:clamp(2rem,4vw,2.8rem)">Analyze a photo</h1>
+      <p class="muted">Upload one full-body photo of a single person, standing and facing the camera with arms slightly away from the body. PhyVision classifies the physique and shows a matching fitness guide.</p>
+
+      <div class="guide-mini">
+        <div id="miniDiagram" aria-hidden="true"></div>
+        <ul>
+          <li>Portrait photo, about 2:3 or 3:4</li>
+          <li>One person, head to feet in frame</li>
+          <li>Body fills 75-95% of the height</li>
+          <li>Facing the camera, arms slightly out</li>
+          <li>Fitted clothes, plain background</li>
+          <li><a href="photo-guide.html">Full photo guide</a></li>
+        </ul>
+      </div>
+
+      <label class="drop" id="drop" tabindex="0">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 16V4m0 0-4 4m4-4 4 4M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+        <strong>Choose a photo</strong> or drop it here
+        <div class="small muted">JPG, PNG or WebP, up to 20 MB. A transparent PNG cut-out works best.</div>
+        <input type="file" id="file" accept="image/*" class="sr-only">
+      </label>
+      <div id="offlineNote" class="notice" hidden>
+        <strong>Uploads need the PhyVision server.</strong> In the project folder run <code>python app.py</code>, then open the address it prints. The demo people below work offline.
+      </div>
+      <fieldset class="seg-choice" id="segChoice" style="border:0;padding:0">
+        <legend class="small muted" style="padding:0;margin-bottom:6px">Background removal</legend>
+        <label><input type="radio" name="seg" value="auto" checked> Best available</label>
+        <label><input type="radio" name="seg" value="grabcut"> GrabCut (offline)</label>
+      </fieldset>
+
+      <h2 style="font-size:1.25rem;margin-top:26px">Or try a demo person</h2>
+      <p class="small muted" style="margin:0">Fictional, computer-rendered people for testing.</p>
+      <div class="people" id="people"></div>
+    </aside>
+
+    <section id="result" class="panel" aria-live="polite" style="padding:24px">
+      <div class="result-empty" id="empty">
+        <img src="assets/logo.svg" alt="" width="64" height="64" style="margin:0 auto 12px">
+        <h2>Your result will appear here</h2>
+        <p class="muted" style="margin:0 auto">Choose a photo or tap a demo person to see their physique class, body proportions and a fitness plan.</p>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><strong>PhyVision</strong> by Swayam Shakya. MIT License.</div>
+    <div id="disclaimer"></div>
+  </div>
+</footer>
+
+<script>
+(async function () {
+  const resultEl = document.getElementById("result");
+  const fileInput = document.getElementById("file");
+  const drop = document.getElementById("drop");
+  const s = await PV.status();
+  const guides = await PV.guides();
+  document.getElementById("miniDiagram").innerHTML = PV.frameDiagram({ labels: false });
+  document.getElementById("disclaimer").textContent = guides.disclaimer;
+
+  if (!s) {
+    document.getElementById("offlineNote").hidden = false;
+    drop.classList.add("disabled");
+    fileInput.disabled = true;
+    document.getElementById("segChoice").hidden = true;
+  } else if (!s.segmentation.rembg) {
+    const lbl = document.querySelector('input[value="auto"]').parentElement;
+    lbl.lastChild.textContent = " Best available (GrabCut)";
+  }
+
+  /* ---------- demo gallery ---------- */
+  const demos = await PV.demos();
+  const people = document.getElementById("people");
+  people.innerHTML = demos.map((d) => `
+    <button class="person" type="button" data-id="${PV.esc(d.id)}" aria-pressed="false">
+      <img src="${PV.webUrl(d.image)}" alt="${PV.esc(d.name)}" loading="lazy"><span>${PV.esc(d.name)}</span>
+    </button>`).join("");
+  people.addEventListener("click", (e) => {
+    const b = e.target.closest(".person"); if (!b) return;
+    people.querySelectorAll(".person").forEach((x) => x.setAttribute("aria-pressed", String(x === b)));
+    const d = demos.find((x) => x.id === b.dataset.id);
+    if (s) classify(null, d); else if (d.prediction) show(offlineResult(d), d.name);
+    else PV.toast("Run python app.py to analyze this person.");
+  });
+
+  function offlineResult(d) {
+    return { ...d.prediction, guide: guides.classes[d.prediction.label],
+      images: { input: PV.webUrl(d.image), overlay: PV.webUrl(d.overlay || d.image), silhouette: PV.webUrl(d.silhouette || d.mask) }, offline: true };
+  }
+
+  /* ---------- upload ---------- */
+  drop.addEventListener("keydown", (e) => { if ((e.key === "Enter" || e.key === " ") && !fileInput.disabled) { e.preventDefault(); fileInput.click(); } });
+  const clearPressed = () => people.querySelectorAll(".person").forEach((x) => x.setAttribute("aria-pressed", "false"));
+  fileInput.addEventListener("change", () => { if (fileInput.files[0]) { clearPressed(); classify(fileInput.files[0]); fileInput.value = ""; } });
+  ["dragenter", "dragover"].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); if (s) drop.classList.add("drag"); }));
+  ["dragleave", "drop"].forEach((ev) => drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.remove("drag"); }));
+  drop.addEventListener("drop", (e) => {
+    if (!s) { PV.toast("Start the server with python app.py to analyze uploads."); return; }
+    const f = e.dataTransfer.files[0];
+    if (f && f.type.startsWith("image/")) { clearPressed(); classify(f); } else PV.toast("Drop an image file (JPG, PNG or WebP).");
+  });
+
+  async function classify(file, demo) {
+    resultEl.innerHTML = '<div class="result-empty"><div class="spinner" aria-hidden="true"></div><p>Finding the person and measuring proportions…</p></div>';
+    const fd = new FormData();
+    if (file) fd.append("image", file); else fd.append("demo_id", demo.id);
+    fd.append("seg", document.querySelector('input[name="seg"]:checked').value);
+    try {
+      const r = await PV.api("/api/classify", { method: "POST", body: fd, timeout: 180000 });
+      show(r, demo ? demo.name : (file && file.name));
+    } catch (err) {
+      const msg = err.name === "AbortError" ? "The analysis took too long. Try a smaller image." : err.message;
+      resultEl.innerHTML = `<div class="result-empty"><h2>That photo could not be analyzed</h2><p class="muted" style="margin:0 auto 14px">${PV.esc(msg)}</p><p class="small muted" style="margin:0 auto">Use a full-body photo of one person against a plain background, or a PNG with the background already removed.</p></div>`;
+    }
+  }
+
+  function show(r, name) {
+    const c = r.label, m = r.metrics || {};
+    const metricRows = [
+      ["Shoulder to waist", m.shoulder_to_waist, (v) => v.toFixed(2) + "×"],
+      ["Waist to hip", m.waist_to_hip, (v) => v.toFixed(2)],
+      ["Width at shoulders", m.shoulder_width_pct_height, (v) => v + "% of height"],
+      ["Width at waist", m.waist_width_pct_height, (v) => v + "% of height"],
+    ].filter((x) => x[1] != null);
+    const notes = [];
+    if (r.borderline) notes.push(`This is a borderline result: the body also looks quite ${PV.LABEL[r.runner_up]}. Read both guides.`);
+    if (r.training_image_match) notes.push("This file is identical to an image in the training set, so the result shows memory rather than generalisation.");
+    if (!r.checks) (r.warnings || []).forEach((w) => notes.push(w));
+    const checks = r.checks || [];
+    const nBad = checks.filter((c) => c.status === "bad").length, nWarn = checks.filter((c) => c.status === "warn").length;
+    const checkSummary = nBad ? `${nBad} problem${nBad > 1 ? "s" : ""} make this result less reliable.` :
+      nWarn ? `${nWarn} item${nWarn > 1 ? "s" : ""} could be better.` : "Your photo matches the guide.";
+    const checkHTML = checks.length ? `
+      <details class="panel" style="margin:0 0 18px;padding:14px 18px" ${nBad ? "open" : ""}>
+        <summary style="cursor:pointer"><strong>Photo check:</strong> ${checkSummary}</summary>
+        <ul class="checks" style="margin-top:12px">${checks.map((c) => `<li><span class="st ${c.status}" aria-label="${c.status === "ok" ? "passed" : c.status === "warn" ? "could be better" : "problem"}">${c.status === "ok" ? "✓" : c.status === "warn" ? "!" : "✕"}</span><span><b>${PV.esc(c.name)}.</b> <span class="d">${PV.esc(c.detail)}</span></span></li>`).join("")}</ul>
+        <p class="small muted" style="margin:10px 0 0">See the <a href="photo-guide.html">photo guide</a> for how to take a photo that matches.</p>
+      </details>` : "";
+    const segName = { rembg: "rembg human segmentation", grabcut: "OpenCV GrabCut", alpha: "your PNG transparency", reference: "the reference mask" }[r.segmentation] || r.segmentation;
+
+    resultEl.innerHTML = `
+      <div class="c-${c}">
+        <div class="result-head">
+          <div class="verdict">${PV.LABEL[c]}</div>
+          <div class="conf">${PV.pct(r.confidence)} confidence${name ? ` for <strong>${PV.esc(name)}</strong>` : ""}</div>
+        </div>
+        ${r.framing ? `<p class="small" style="margin:6px 0 0">Framing detected: <span class="framing-badge">${PV.esc(r.framing.label)} · about ${Math.round(r.framing.visible * 100)}% of the body</span></p>` : ""}
+        <p class="muted" style="margin-top:8px">${PV.esc(r.guide.tagline)}.</p>
+        ${notes.length ? `<ul class="warn-list">${notes.map((n) => `<li>${PV.esc(n)}</li>`).join("")}</ul>` : ""}
+        <div class="views">
+          <div>
+            <div class="tabs" role="tablist" aria-label="Image view">
+              <button role="tab" aria-selected="true" data-v="overlay">Detected person</button>
+              <button role="tab" aria-selected="false" data-v="input">Original</button>
+              <button role="tab" aria-selected="false" data-v="silhouette">What the model sees</button>
+            </div>
+            <div class="viewer"><img id="viewImg" src="${r.images.overlay}" alt="Photo with the detected person outlined"></div>
+            <p class="small muted" style="margin-top:6px">Person found using ${PV.esc(segName)}${r.elapsed_ms ? ` in ${r.elapsed_ms} ms` : ""}${r.offline ? " (pre-computed result, offline mode)" : ""}.</p>
+          </div>
+          <div>
+            <h3>Class probabilities</h3>
+            <div class="bars" id="bars"></div>
+            <h3 style="margin-top:22px">Proportions from the silhouette</h3>
+            ${m.reliable === false ? `<p class="small muted">Not measured for this photo. ${m.arms_separate === false ? "An arm touches or overlaps the body at the waist, so the outline cannot separate arm from torso." : "The measurements came out implausible for this pose."} Hold your arms slightly away from your sides, as in the <a href="photo-guide.html">photo guide</a>, to see shoulder and waist proportions. The classification above does not depend on these numbers.</p>` : `
+            <dl class="metrics-list">${metricRows.map(([k, v, f]) => `<div><dt>${k}</dt><dd>${f(v)}</dd></div>`).join("")}</dl>
+            <p class="small muted" style="margin-top:8px">Approximate widths across the 2-D outline, relative to estimated body height. Loose clothing is included in the outline.</p>`}
+          </div>
+        </div>
+      </div>
+      ${checkHTML}
+      ${PV.guideHTML(r.guide, c, { heading: `Your ${PV.LABEL[c]} fitness guide` })}
+      <p class="small muted" style="margin-top:14px">${PV.esc(guides.disclaimer)} <a href="guides.html#${c}">Compare all four guides</a>.</p>`;
+    PV.bars(r.probabilities, document.getElementById("bars"));
+    const alts = { overlay: "Photo with the detected person outlined", input: "The original photo", silhouette: "The normalised silhouette given to the model" };
+    resultEl.querySelectorAll(".tabs button").forEach((b) => b.addEventListener("click", () => {
+      resultEl.querySelectorAll(".tabs button").forEach((x) => x.setAttribute("aria-selected", String(x === b)));
+      const img = document.getElementById("viewImg");
+      img.src = r.images[b.dataset.v]; img.alt = alts[b.dataset.v];
+    }));
+    if (window.matchMedia("(max-width: 979px)").matches) resultEl.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+})();
+</script>
+</body>
+</html>

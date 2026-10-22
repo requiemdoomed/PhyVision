@@ -1,0 +1,15 @@
+# PhyVision requirements (Python 3.10 - 3.13)
+torch>=2.2
+torchvision>=0.17
+numpy>=1.24
+opencv-python-headless>=4.8
+pillow>=10.0
+flask>=3.0
+scikit-learn>=1.3
+matplotlib>=3.7
+pandas>=2.0
+# Neural background removal for real photos. The first analysis downloads the
+# u2net_human_seg model (~170 MB) from GitHub; after that it works offline.
+# If this package fails to install on your system, remove the line:
+# PhyVision falls back to OpenCV GrabCut automatically.
+rembg[cpu]>=2.0.50

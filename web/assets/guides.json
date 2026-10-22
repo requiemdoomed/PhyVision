@@ -1,0 +1,150 @@
+{
+  "disclaimer": "PhyVision estimates body shape from a 2-D silhouette. It does not measure body fat, weight, muscle mass or health, and it is not a medical device. These guides are general fitness education. Talk to a doctor or registered dietitian before starting a new diet or exercise programme, especially if you have a medical condition, are pregnant, are under 18, or are recovering from injury.",
+  "classes": {
+    "skinny": {
+      "title": "Skinny",
+      "tagline": "Lean frame with low muscle and body mass",
+      "accent": "#38bdf8",
+      "summary": "Your silhouette shows a narrow frame: slim shoulders, a small waist and thin arms and legs. That is a great starting point for building strength. The priority is to add lean muscle with progressive resistance training and to eat enough, consistently, to fuel that growth.",
+      "goals": [
+        "Gain lean muscle mass gradually (a realistic pace is about 0.25 to 0.5 kg per week)",
+        "Build full-body strength, especially in the big compound lifts",
+        "Eat consistently in a small energy surplus with plenty of protein",
+        "Improve sleep and recovery so the training actually turns into muscle"
+      ],
+      "training": {
+        "focus": "Progressive strength training 3 to 4 days a week. Keep cardio light (2 short sessions of walking or cycling) so you are not burning the energy you need for growth.",
+        "weekly_plan": [
+          {"day": "Mon", "session": "Full body A: squat, bench press, row, plank"},
+          {"day": "Tue", "session": "Rest or a 20-minute easy walk"},
+          {"day": "Wed", "session": "Full body B: deadlift or hip hinge, overhead press, pull-ups or lat pulldown, lunges"},
+          {"day": "Thu", "session": "Rest and mobility"},
+          {"day": "Fri", "session": "Full body A (add a little weight or one more rep than Monday)"},
+          {"day": "Sat", "session": "Optional: light cardio and core work"},
+          {"day": "Sun", "session": "Full rest"}
+        ],
+        "key_exercises": ["Goblet or back squat", "Push-ups to bench press", "Dumbbell or barbell row", "Romanian deadlift", "Overhead press", "Pull-ups (assisted if needed)", "Walking lunges", "Plank and dead bug"],
+        "progression": "Work in the 6 to 12 rep range for 3 sets. When you can do the top of the rep range with good form on every set, add a small amount of weight next session."
+      },
+      "nutrition": [
+        "Eat about 250 to 500 kcal a day above your maintenance needs. If your weight has not moved in two weeks, add a little more.",
+        "Aim for roughly 1.6 to 2.2 g of protein per kg of body weight per day, spread across 3 to 5 meals.",
+        "Use energy-dense whole foods: nuts and nut butters, whole milk or yoghurt, olive oil, rice, oats, potatoes, eggs, fish and lean meat or tofu and lentils.",
+        "Drink calories when appetite is low: a smoothie of milk, banana, oats and peanut butter is an easy 600+ kcal.",
+        "Do not skip breakfast and keep snacks within reach. Consistency beats huge single meals."
+      ],
+      "sample_day": ["Breakfast: oats cooked in milk with banana, peanut butter and eggs", "Snack: Greek yoghurt with granola and nuts", "Lunch: rice, chicken or tofu, vegetables and olive oil", "Post-workout: smoothie (milk, fruit, oats, nut butter)", "Dinner: salmon or lentil curry, potatoes, salad", "Evening: cottage cheese or a glass of milk with toast"],
+      "lifestyle": ["Sleep 7 to 9 hours. Muscle is built during recovery.", "Track body weight weekly (same day, same time) and progress photos monthly.", "Limit long, intense cardio sessions while bulking.", "Be patient: visible change usually takes 8 to 12 weeks."],
+      "cautions": ["If you are underweight and struggle to eat, lose weight without trying, or feel unwell, see a doctor to rule out medical causes.", "If food, eating or body image feel stressful, please talk to a health professional. Support is available."]
+    },
+    "normal": {
+      "title": "Normal",
+      "tagline": "Balanced, average proportions",
+      "accent": "#34d399",
+      "summary": "Your silhouette shows balanced proportions: shoulders, waist and hips are in typical ratios and limb size is average. The goal is to stay healthy and choose a direction, whether that is more strength, better endurance or a leaner, more athletic look.",
+      "goals": [
+        "Maintain a healthy body composition and waist size",
+        "Meet the activity guideline of at least 150 minutes of moderate activity per week plus 2 strength sessions",
+        "Pick a direction: build muscle (recomposition), improve fitness, or both",
+        "Build habits that last: sleep, movement and mostly whole foods"
+      ],
+      "training": {
+        "focus": "A balanced mix of strength training (3 days) and cardiovascular work (2 to 3 days), with daily movement such as walking.",
+        "weekly_plan": [
+          {"day": "Mon", "session": "Upper body strength: push-ups or bench, rows, shoulder press, curls"},
+          {"day": "Tue", "session": "Cardio: 30 to 40 minutes brisk walk, jog or bike"},
+          {"day": "Wed", "session": "Lower body strength: squats, hip hinges, lunges, calf raises, core"},
+          {"day": "Thu", "session": "Active recovery: yoga or mobility, 8,000+ steps"},
+          {"day": "Fri", "session": "Full body strength circuit"},
+          {"day": "Sat", "session": "Intervals: 6 to 10 rounds of 1 minute hard, 2 minutes easy, or a sport you enjoy"},
+          {"day": "Sun", "session": "Rest or a long easy walk"}
+        ],
+        "key_exercises": ["Squats", "Push-ups", "Inverted or dumbbell rows", "Hip thrusts", "Lunges", "Plank variations", "Brisk walking or running", "Cycling or swimming"],
+        "progression": "Add a rep, a set or a little load every week or two. Track your cardio (distance, pace or heart rate) to see improvement."
+      },
+      "nutrition": [
+        "Eat around maintenance. To build muscle while staying lean (recomposition), keep protein high and calories close to maintenance.",
+        "Aim for about 1.2 to 1.6 g of protein per kg of body weight per day.",
+        "Fill half your plate with vegetables and fruit, a quarter with protein and a quarter with whole grains or starchy vegetables.",
+        "Keep ultra-processed snacks and sugary drinks occasional rather than daily.",
+        "Drink water through the day and around workouts."
+      ],
+      "sample_day": ["Breakfast: wholegrain toast, eggs, fruit", "Lunch: quinoa or rice bowl with beans or chicken and vegetables", "Snack: fruit and a handful of nuts", "Dinner: fish, tofu or lean meat with roasted vegetables and potatoes", "Optional: yoghurt or a protein shake after training"],
+      "lifestyle": ["Sleep 7 to 9 hours.", "Break up long periods of sitting every hour.", "Measure your waist every month. It tracks health better than the scale alone.", "Manage stress with walks, hobbies and social time."],
+      "cautions": ["Increase training volume gradually (about 10% per week) to avoid overuse injuries.", "Warm up before hard sessions and get pain checked if it does not settle."]
+    },
+    "athletic": {
+      "title": "Athletic",
+      "tagline": "Muscular build with a strong shoulder-to-waist taper",
+      "accent": "#fbbf24",
+      "summary": "Your silhouette shows broad shoulders relative to the waist and well-developed arms and legs, the classic V-taper of a trained body. The focus now is smart programming: keep progressing without burning out, balance strength with mobility and conditioning, and protect your joints.",
+      "goals": [
+        "Keep making progress with structured, periodised training",
+        "Balance strength with mobility, conditioning and injury prevention",
+        "Fuel performance and recovery properly",
+        "Maintain healthy body composition year-round, not just for a peak"
+      ],
+      "training": {
+        "focus": "4 to 5 structured sessions a week (for example an upper/lower or push/pull/legs split), 1 to 2 conditioning sessions, and regular deload weeks.",
+        "weekly_plan": [
+          {"day": "Mon", "session": "Upper strength: heavy press and pull, 4 to 6 reps"},
+          {"day": "Tue", "session": "Lower strength: squat, deadlift variation, single-leg work"},
+          {"day": "Wed", "session": "Conditioning and mobility: zone-2 cardio 30 to 45 minutes plus hips, thoracic spine and shoulders"},
+          {"day": "Thu", "session": "Upper hypertrophy: 8 to 15 reps, more volume"},
+          {"day": "Fri", "session": "Lower hypertrophy and posterior chain"},
+          {"day": "Sat", "session": "Sport, sprints or intervals"},
+          {"day": "Sun", "session": "Rest"}
+        ],
+        "key_exercises": ["Back or front squat", "Deadlift or trap-bar deadlift", "Bench and incline press", "Weighted pull-ups", "Overhead press", "Bulgarian split squat", "Face pulls and rear-delt work", "Loaded carries", "Zone-2 cardio"],
+        "progression": "Run 3 to 5 week blocks of rising intensity followed by a lighter deload week. Log your lifts and adjust when the bar speed or sleep drops."
+      },
+      "nutrition": [
+        "Eat to your goal: maintenance to stay where you are, a small surplus (about 200 to 300 kcal) to keep gaining muscle, a small deficit to lean out.",
+        "Protein about 1.6 to 2.2 g per kg of body weight per day, including 20 to 40 g around training.",
+        "Carbohydrates fuel hard training. Put most of them around your sessions.",
+        "Include omega-3 sources (oily fish, walnuts, flax), fruit and vegetables for recovery.",
+        "Hydrate well, and replace sodium if you sweat heavily."
+      ],
+      "sample_day": ["Breakfast: eggs or tofu scramble, oats, berries", "Pre-workout: banana and yoghurt", "Post-workout: rice, lean protein, vegetables", "Snack: protein shake or cottage cheese with fruit", "Dinner: salmon or beans, sweet potato, greens"],
+      "lifestyle": ["Sleep 8 hours or more during heavy training blocks.", "Schedule a deload every 4 to 6 weeks.", "Do 10 minutes of mobility work most days.", "Watch for overtraining signs: poor sleep, persistent soreness, falling performance, low mood."],
+      "cautions": ["Avoid supplements or substances that are not third-party tested. Anabolic steroids carry serious health risks.", "Get persistent joint pain assessed rather than training through it."]
+    },
+    "obese": {
+      "title": "Obese",
+      "tagline": "Higher body-mass silhouette, wider at the waist",
+      "accent": "#f472b6",
+      "summary": "Your silhouette is wider through the waist and middle than through the shoulders, which usually indicates a higher level of body fat. That is common and very changeable. Small, steady changes in movement, food and sleep make a real difference to health, often well before the scale moves much. You deserve a plan that is kind and sustainable.",
+      "goals": [
+        "Improve health markers such as blood pressure, blood sugar, fitness and mobility",
+        "Reduce waist size and body fat gradually and safely (about 0.5 to 1% of body weight per week)",
+        "Build daily movement and strength so everyday tasks feel easier",
+        "Create eating habits you can keep for life rather than a short crash diet"
+      ],
+      "training": {
+        "focus": "Start where you are with low-impact activity and simple strength work. Build up to at least 150 to 300 minutes of moderate activity a week plus 2 to 3 strength sessions.",
+        "weekly_plan": [
+          {"day": "Mon", "session": "Walk 20 to 30 minutes at a comfortable pace, plus a 15-minute strength circuit (sit-to-stand, wall push-ups, band rows)"},
+          {"day": "Tue", "session": "Low-impact cardio: cycling, swimming, water aerobics or an elliptical, 20 to 30 minutes"},
+          {"day": "Wed", "session": "Walk, plus gentle mobility and balance work"},
+          {"day": "Thu", "session": "Strength circuit (same as Monday, try one more round or rep)"},
+          {"day": "Fri", "session": "Low-impact cardio 25 to 35 minutes"},
+          {"day": "Sat", "session": "A longer walk outdoors, a hike or an active hobby"},
+          {"day": "Sun", "session": "Rest and stretching"}
+        ],
+        "key_exercises": ["Brisk walking (build up steps gradually)", "Stationary bike or swimming", "Sit-to-stand from a chair", "Wall or incline push-ups", "Resistance-band rows", "Step-ups on a low step", "Glute bridges", "Standing core bracing and march"],
+        "progression": "Add 5 minutes of walking or about 1,000 daily steps each week. Once circuits feel easy, add a round, light dumbbells or a slightly higher step."
+      },
+      "nutrition": [
+        "Aim for a moderate energy deficit (often around 500 kcal a day below maintenance). Avoid very low-calorie crash diets unless medically supervised.",
+        "Build meals around protein (about 1.2 to 1.6 g per kg of goal body weight) and vegetables. Both help you feel full.",
+        "Swap sugary drinks and juice for water, sparkling water or unsweetened tea or coffee. This alone can make a big difference.",
+        "Choose high-fibre foods: beans, lentils, whole grains, fruit and vegetables.",
+        "Use smaller plates, eat slowly and plan meals ahead to reduce impulse eating.",
+        "Keep a simple food log for a couple of weeks to understand your patterns, without judging yourself."
+      ],
+      "sample_day": ["Breakfast: Greek yoghurt with berries and oats, or eggs and wholegrain toast", "Lunch: big salad or vegetable soup with beans, chicken or tofu", "Snack: an apple and a small handful of nuts", "Dinner: half a plate of vegetables, grilled fish or lentils, a fist-sized portion of rice or potatoes", "Drinks: water and unsweetened tea or coffee"],
+      "lifestyle": ["Sleep 7 to 9 hours. Poor sleep increases appetite.", "Find ways to manage stress that are not food-based: walking, talking to a friend, hobbies.", "Measure your waist monthly and celebrate non-scale wins: energy, sleep, stairs, clothes fit.", "Find support: a walking buddy, a group class or a coach.", "Expect plateaus. They are normal, not failure."],
+      "cautions": ["See a doctor before starting, especially if you have heart, joint, blood-pressure or blood-sugar conditions, or take medication.", "Stop and get medical help if you have chest pain, severe breathlessness or dizziness during exercise.", "A doctor can also discuss further options, such as referral to a dietitian, supervised programmes or medication, where appropriate."]
+    }
+  }
+}

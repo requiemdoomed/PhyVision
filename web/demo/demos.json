@@ -1,0 +1,936 @@
+[
+  {
+    "id": "john_bahadur",
+    "name": "John Bahadur",
+    "image": "demo/john_bahadur.jpg",
+    "mask": "demo/john_bahadur_mask.png",
+    "intended": "athletic",
+    "sex": "male",
+    "framing": "full",
+    "pose": "apart",
+    "prediction": {
+      "label": "athletic",
+      "label_display": "Athletic",
+      "confidence": 0.9673988819122314,
+      "probabilities": {
+        "athletic": 0.9673988819122314,
+        "normal": 0.009336202405393124,
+        "obese": 0.011441435664892197,
+        "skinny": 0.011823474429547787
+      },
+      "runner_up": "skinny",
+      "borderline": false,
+      "metrics": {
+        "shoulder_width_pct_height": 31.8,
+        "waist_width_pct_height": 16.9,
+        "hip_width_pct_height": 19.5,
+        "shoulder_to_waist": 1.88,
+        "waist_to_hip": 0.87,
+        "silhouette_fill": 0.392,
+        "aspect_w_h": 0.539,
+        "arms_separate": true,
+        "reliable": true
+      },
+      "warnings": [],
+      "framing": {
+        "visible": 1.0,
+        "name": "full",
+        "label": "Head to feet"
+      },
+      "checks": [
+        {
+          "id": "resolution",
+          "name": "Resolution",
+          "status": "ok",
+          "detail": "600 x 900 px."
+        },
+        {
+          "id": "aspect",
+          "name": "Orientation",
+          "status": "ok",
+          "detail": "Portrait, width:height 0.67."
+        },
+        {
+          "id": "single",
+          "name": "One person",
+          "status": "ok",
+          "detail": "One person detected."
+        },
+        {
+          "id": "background",
+          "name": "Background",
+          "status": "ok",
+          "detail": "Person separated from the background."
+        },
+        {
+          "id": "size",
+          "name": "Person size",
+          "status": "ok",
+          "detail": "The person fills 84% of the photo height."
+        },
+        {
+          "id": "head",
+          "name": "Head in frame",
+          "status": "ok",
+          "detail": "Head fully visible."
+        },
+        {
+          "id": "centre",
+          "name": "Centred",
+          "status": "ok",
+          "detail": "Person centred, sides of the body in frame."
+        },
+        {
+          "id": "framing",
+          "name": "Framing",
+          "status": "ok",
+          "detail": "Full body visible, head to feet. This is the most reliable framing."
+        }
+      ],
+      "segmentation": "reference"
+    },
+    "overlay": "demo/john_bahadur_overlay.jpg",
+    "silhouette": "demo/john_bahadur_silhouette.png"
+  },
+  {
+    "id": "aarav_shrestha",
+    "name": "Aarav Shrestha",
+    "image": "demo/aarav_shrestha.jpg",
+    "mask": "demo/aarav_shrestha_mask.png",
+    "intended": "skinny",
+    "sex": "male",
+    "framing": "full",
+    "pose": "apart",
+    "prediction": {
+      "label": "skinny",
+      "label_display": "Skinny",
+      "confidence": 0.9806770086288452,
+      "probabilities": {
+        "athletic": 0.009538905695080757,
+        "normal": 0.0010648972820490599,
+        "obese": 0.008719196543097496,
+        "skinny": 0.9806770086288452
+      },
+      "runner_up": "athletic",
+      "borderline": false,
+      "metrics": {
+        "shoulder_width_pct_height": 23.5,
+        "waist_width_pct_height": 13.1,
+        "hip_width_pct_height": 15.3,
+        "shoulder_to_waist": 1.79,
+        "waist_to_hip": 0.86,
+        "silhouette_fill": 0.288,
+        "aspect_w_h": 0.507,
+        "arms_separate": true,
+        "reliable": true
+      },
+      "warnings": [],
+      "framing": {
+        "visible": 1.0,
+        "name": "full",
+        "label": "Head to feet"
+      },
+      "checks": [
+        {
+          "id": "resolution",
+          "name": "Resolution",
+          "status": "ok",
+          "detail": "600 x 900 px."
+        },
+        {
+          "id": "aspect",
+          "name": "Orientation",
+          "status": "ok",
+          "detail": "Portrait, width:height 0.67."
+        },
+        {
+          "id": "single",
+          "name": "One person",
+          "status": "ok",
+          "detail": "One person detected."
+        },
+        {
+          "id": "background",
+          "name": "Background",
+          "status": "ok",
+          "detail": "Person separated from the background."
+        },
+        {
+          "id": "size",
+          "name": "Person size",
+          "status": "ok",
+          "detail": "The person fills 84% of the photo height."
+        },
+        {
+          "id": "head",
+          "name": "Head in frame",
+          "status": "ok",
+          "detail": "Head fully visible."
+        },
+        {
+          "id": "centre",
+          "name": "Centred",
+          "status": "ok",
+          "detail": "Person centred, sides of the body in frame."
+        },
+        {
+          "id": "framing",
+          "name": "Framing",
+          "status": "ok",
+          "detail": "Full body visible, head to feet. This is the most reliable framing."
+        }
+      ],
+      "segmentation": "reference"
+    },
+    "overlay": "demo/aarav_shrestha_overlay.jpg",
+    "silhouette": "demo/aarav_shrestha_silhouette.png"
+  },
+  {
+    "id": "maya_gurung",
+    "name": "Maya Gurung",
+    "image": "demo/maya_gurung.jpg",
+    "mask": "demo/maya_gurung_mask.png",
+    "intended": "normal",
+    "sex": "female",
+    "framing": "full",
+    "pose": "apart",
+    "prediction": {
+      "label": "normal",
+      "label_display": "Normal",
+      "confidence": 0.9788786172866821,
+      "probabilities": {
+        "athletic": 0.005681383423507214,
+        "normal": 0.9788786172866821,
+        "obese": 0.012584744021296501,
+        "skinny": 0.0028552052099257708
+      },
+      "runner_up": "obese",
+      "borderline": false,
+      "metrics": {
+        "shoulder_width_pct_height": 23.0,
+        "waist_width_pct_height": 15.2,
+        "hip_width_pct_height": 19.8,
+        "shoulder_to_waist": 1.51,
+        "waist_to_hip": 0.77,
+        "silhouette_fill": 0.384,
+        "aspect_w_h": 0.458,
+        "arms_separate": true,
+        "reliable": true
+      },
+      "warnings": [],
+      "framing": {
+        "visible": 1.0,
+        "name": "full",
+        "label": "Head to feet"
+      },
+      "checks": [
+        {
+          "id": "resolution",
+          "name": "Resolution",
+          "status": "ok",
+          "detail": "600 x 900 px."
+        },
+        {
+          "id": "aspect",
+          "name": "Orientation",
+          "status": "ok",
+          "detail": "Portrait, width:height 0.67."
+        },
+        {
+          "id": "single",
+          "name": "One person",
+          "status": "ok",
+          "detail": "One person detected."
+        },
+        {
+          "id": "background",
+          "name": "Background",
+          "status": "ok",
+          "detail": "Person separated from the background."
+        },
+        {
+          "id": "size",
+          "name": "Person size",
+          "status": "ok",
+          "detail": "The person fills 84% of the photo height."
+        },
+        {
+          "id": "head",
+          "name": "Head in frame",
+          "status": "ok",
+          "detail": "Head fully visible."
+        },
+        {
+          "id": "centre",
+          "name": "Centred",
+          "status": "ok",
+          "detail": "Person centred, sides of the body in frame."
+        },
+        {
+          "id": "framing",
+          "name": "Framing",
+          "status": "ok",
+          "detail": "Full body visible, head to feet. This is the most reliable framing."
+        }
+      ],
+      "segmentation": "reference"
+    },
+    "overlay": "demo/maya_gurung_overlay.jpg",
+    "silhouette": "demo/maya_gurung_silhouette.png"
+  },
+  {
+    "id": "sofia_martinez",
+    "name": "Sofia Martinez",
+    "image": "demo/sofia_martinez.jpg",
+    "mask": "demo/sofia_martinez_mask.png",
+    "intended": "athletic",
+    "sex": "female",
+    "framing": "full",
+    "pose": "apart",
+    "prediction": {
+      "label": "athletic",
+      "label_display": "Athletic",
+      "confidence": 0.965682864189148,
+      "probabilities": {
+        "athletic": 0.965682864189148,
+        "normal": 0.009560907259583473,
+        "obese": 0.012572347186505795,
+        "skinny": 0.012183867394924164
+      },
+      "runner_up": "obese",
+      "borderline": false,
+      "metrics": {
+        "shoulder_width_pct_height": 27.9,
+        "waist_width_pct_height": 15.0,
+        "hip_width_pct_height": 21.9,
+        "shoulder_to_waist": 1.86,
+        "waist_to_hip": 0.68,
+        "silhouette_fill": 0.429,
+        "aspect_w_h": 0.506,
+        "arms_separate": true,
+        "reliable": true
+      },
+      "warnings": [],
+      "framing": {
+        "visible": 1.0,
+        "name": "full",
+        "label": "Head to feet"
+      },
+      "checks": [
+        {
+          "id": "resolution",
+          "name": "Resolution",
+          "status": "ok",
+          "detail": "600 x 900 px."
+        },
+        {
+          "id": "aspect",
+          "name": "Orientation",
+          "status": "ok",
+          "detail": "Portrait, width:height 0.67."
+        },
+        {
+          "id": "single",
+          "name": "One person",
+          "status": "ok",
+          "detail": "One person detected."
+        },
+        {
+          "id": "background",
+          "name": "Background",
+          "status": "ok",
+          "detail": "Person separated from the background."
+        },
+        {
+          "id": "size",
+          "name": "Person size",
+          "status": "ok",
+          "detail": "The person fills 84% of the photo height."
+        },
+        {
+          "id": "head",
+          "name": "Head in frame",
+          "status": "ok",
+          "detail": "Head fully visible."
+        },
+        {
+          "id": "centre",
+          "name": "Centred",
+          "status": "ok",
+          "detail": "Person centred, sides of the body in frame."
+        },
+        {
+          "id": "framing",
+          "name": "Framing",
+          "status": "ok",
+          "detail": "Full body visible, head to feet. This is the most reliable framing."
+        }
+      ],
+      "segmentation": "reference"
+    },
+    "overlay": "demo/sofia_martinez_overlay.jpg",
+    "silhouette": "demo/sofia_martinez_silhouette.png"
+  },
+  {
+    "id": "liam_oconnor",
+    "name": "Liam O'Connor",
+    "image": "demo/liam_oconnor.jpg",
+    "mask": "demo/liam_oconnor_mask.png",
+    "intended": "obese",
+    "sex": "male",
+    "framing": "full",
+    "pose": "apart",
+    "prediction": {
+      "label": "obese",
+      "label_display": "Obese",
+      "confidence": 0.9758428335189819,
+      "probabilities": {
+        "athletic": 0.0063945334404706955,
+        "normal": 0.00894742738455534,
+        "obese": 0.9758428335189819,
+        "skinny": 0.008815215900540352
+      },
+      "runner_up": "normal",
+      "borderline": false,
+      "metrics": {
+        "shoulder_width_pct_height": 32.1,
+        "waist_width_pct_height": 27.8,
+        "hip_width_pct_height": 28.3,
+        "shoulder_to_waist": 1.16,
+        "waist_to_hip": 0.98,
+        "silhouette_fill": 0.41,
+        "aspect_w_h": 0.601,
+        "arms_separate": true,
+        "reliable": true
+      },
+      "warnings": [],
+      "framing": {
+        "visible": 1.0,
+        "name": "full",
+        "label": "Head to feet"
+      },
+      "checks": [
+        {
+          "id": "resolution",
+          "name": "Resolution",
+          "status": "ok",
+          "detail": "600 x 900 px."
+        },
+        {
+          "id": "aspect",
+          "name": "Orientation",
+          "status": "ok",
+          "detail": "Portrait, width:height 0.67."
+        },
+        {
+          "id": "single",
+          "name": "One person",
+          "status": "ok",
+          "detail": "One person detected."
+        },
+        {
+          "id": "background",
+          "name": "Background",
+          "status": "ok",
+          "detail": "Person separated from the background."
+        },
+        {
+          "id": "size",
+          "name": "Person size",
+          "status": "ok",
+          "detail": "The person fills 84% of the photo height."
+        },
+        {
+          "id": "head",
+          "name": "Head in frame",
+          "status": "ok",
+          "detail": "Head fully visible."
+        },
+        {
+          "id": "centre",
+          "name": "Centred",
+          "status": "ok",
+          "detail": "Person centred, sides of the body in frame."
+        },
+        {
+          "id": "framing",
+          "name": "Framing",
+          "status": "ok",
+          "detail": "Full body visible, head to feet. This is the most reliable framing."
+        }
+      ],
+      "segmentation": "reference"
+    },
+    "overlay": "demo/liam_oconnor_overlay.jpg",
+    "silhouette": "demo/liam_oconnor_silhouette.png"
+  },
+  {
+    "id": "priya_karki",
+    "name": "Priya Karki",
+    "image": "demo/priya_karki.jpg",
+    "mask": "demo/priya_karki_mask.png",
+    "intended": "skinny",
+    "sex": "female",
+    "framing": "full",
+    "pose": "apart",
+    "prediction": {
+      "label": "skinny",
+      "label_display": "Skinny",
+      "confidence": 0.9793146252632141,
+      "probabilities": {
+        "athletic": 0.00878971815109253,
+        "normal": 0.0027260275091975927,
+        "obese": 0.009169621393084526,
+        "skinny": 0.9793146252632141
+      },
+      "runner_up": "obese",
+      "borderline": false,
+      "metrics": {
+        "shoulder_width_pct_height": 20.9,
+        "waist_width_pct_height": 11.8,
+        "hip_width_pct_height": 16.7,
+        "shoulder_to_waist": 1.77,
+        "waist_to_hip": 0.71,
+        "silhouette_fill": 0.331,
+        "aspect_w_h": 0.439,
+        "arms_separate": true,
+        "reliable": true
+      },
+      "warnings": [],
+      "framing": {
+        "visible": 1.0,
+        "name": "full",
+        "label": "Head to feet"
+      },
+      "checks": [
+        {
+          "id": "resolution",
+          "name": "Resolution",
+          "status": "ok",
+          "detail": "600 x 900 px."
+        },
+        {
+          "id": "aspect",
+          "name": "Orientation",
+          "status": "ok",
+          "detail": "Portrait, width:height 0.67."
+        },
+        {
+          "id": "single",
+          "name": "One person",
+          "status": "ok",
+          "detail": "One person detected."
+        },
+        {
+          "id": "background",
+          "name": "Background",
+          "status": "ok",
+          "detail": "Person separated from the background."
+        },
+        {
+          "id": "size",
+          "name": "Person size",
+          "status": "ok",
+          "detail": "The person fills 84% of the photo height."
+        },
+        {
+          "id": "head",
+          "name": "Head in frame",
+          "status": "ok",
+          "detail": "Head fully visible."
+        },
+        {
+          "id": "centre",
+          "name": "Centred",
+          "status": "ok",
+          "detail": "Person centred, sides of the body in frame."
+        },
+        {
+          "id": "framing",
+          "name": "Framing",
+          "status": "ok",
+          "detail": "Full body visible, head to feet. This is the most reliable framing."
+        }
+      ],
+      "segmentation": "reference"
+    },
+    "overlay": "demo/priya_karki_overlay.jpg",
+    "silhouette": "demo/priya_karki_silhouette.png"
+  },
+  {
+    "id": "chen_wei",
+    "name": "Chen Wei",
+    "image": "demo/chen_wei.jpg",
+    "mask": "demo/chen_wei_mask.png",
+    "intended": "normal",
+    "sex": "male",
+    "framing": "full",
+    "pose": "apart",
+    "prediction": {
+      "label": "normal",
+      "label_display": "Normal",
+      "confidence": 0.9765409231185913,
+      "probabilities": {
+        "athletic": 0.01218145526945591,
+        "normal": 0.9765409231185913,
+        "obese": 0.009827117435634136,
+        "skinny": 0.0014505009166896343
+      },
+      "runner_up": "athletic",
+      "borderline": false,
+      "metrics": {
+        "shoulder_width_pct_height": 28.1,
+        "waist_width_pct_height": 17.9,
+        "hip_width_pct_height": 20.3,
+        "shoulder_to_waist": 1.57,
+        "waist_to_hip": 0.88,
+        "silhouette_fill": 0.356,
+        "aspect_w_h": 0.567,
+        "arms_separate": true,
+        "reliable": true
+      },
+      "warnings": [],
+      "framing": {
+        "visible": 1.0,
+        "name": "full",
+        "label": "Head to feet"
+      },
+      "checks": [
+        {
+          "id": "resolution",
+          "name": "Resolution",
+          "status": "ok",
+          "detail": "600 x 900 px."
+        },
+        {
+          "id": "aspect",
+          "name": "Orientation",
+          "status": "ok",
+          "detail": "Portrait, width:height 0.67."
+        },
+        {
+          "id": "single",
+          "name": "One person",
+          "status": "ok",
+          "detail": "One person detected."
+        },
+        {
+          "id": "background",
+          "name": "Background",
+          "status": "ok",
+          "detail": "Person separated from the background."
+        },
+        {
+          "id": "size",
+          "name": "Person size",
+          "status": "ok",
+          "detail": "The person fills 84% of the photo height."
+        },
+        {
+          "id": "head",
+          "name": "Head in frame",
+          "status": "ok",
+          "detail": "Head fully visible."
+        },
+        {
+          "id": "centre",
+          "name": "Centred",
+          "status": "ok",
+          "detail": "Person centred, sides of the body in frame."
+        },
+        {
+          "id": "framing",
+          "name": "Framing",
+          "status": "ok",
+          "detail": "Full body visible, head to feet. This is the most reliable framing."
+        }
+      ],
+      "segmentation": "reference"
+    },
+    "overlay": "demo/chen_wei_overlay.jpg",
+    "silhouette": "demo/chen_wei_silhouette.png"
+  },
+  {
+    "id": "grace_thompson",
+    "name": "Grace Thompson",
+    "image": "demo/grace_thompson.jpg",
+    "mask": "demo/grace_thompson_mask.png",
+    "intended": "obese",
+    "sex": "female",
+    "framing": "full",
+    "pose": "apart",
+    "prediction": {
+      "label": "obese",
+      "label_display": "Obese",
+      "confidence": 0.9790554046630859,
+      "probabilities": {
+        "athletic": 0.005714602768421173,
+        "normal": 0.0075960103422403336,
+        "obese": 0.9790554046630859,
+        "skinny": 0.007633945904672146
+      },
+      "runner_up": "skinny",
+      "borderline": false,
+      "metrics": {
+        "shoulder_width_pct_height": 30.2,
+        "waist_width_pct_height": 41.3,
+        "hip_width_pct_height": 50.7,
+        "shoulder_to_waist": 0.73,
+        "waist_to_hip": 0.81,
+        "silhouette_fill": 0.465,
+        "aspect_w_h": 0.571,
+        "arms_separate": false,
+        "reliable": false
+      },
+      "warnings": [],
+      "framing": {
+        "visible": 1.0,
+        "name": "full",
+        "label": "Head to feet"
+      },
+      "checks": [
+        {
+          "id": "resolution",
+          "name": "Resolution",
+          "status": "ok",
+          "detail": "600 x 900 px."
+        },
+        {
+          "id": "aspect",
+          "name": "Orientation",
+          "status": "ok",
+          "detail": "Portrait, width:height 0.67."
+        },
+        {
+          "id": "single",
+          "name": "One person",
+          "status": "ok",
+          "detail": "One person detected."
+        },
+        {
+          "id": "background",
+          "name": "Background",
+          "status": "ok",
+          "detail": "Person separated from the background."
+        },
+        {
+          "id": "size",
+          "name": "Person size",
+          "status": "ok",
+          "detail": "The person fills 84% of the photo height."
+        },
+        {
+          "id": "head",
+          "name": "Head in frame",
+          "status": "ok",
+          "detail": "Head fully visible."
+        },
+        {
+          "id": "centre",
+          "name": "Centred",
+          "status": "ok",
+          "detail": "Person centred, sides of the body in frame."
+        },
+        {
+          "id": "framing",
+          "name": "Framing",
+          "status": "ok",
+          "detail": "Full body visible, head to feet. This is the most reliable framing."
+        }
+      ],
+      "segmentation": "reference"
+    },
+    "overlay": "demo/grace_thompson_overlay.jpg",
+    "silhouette": "demo/grace_thompson_silhouette.png"
+  },
+  {
+    "id": "ethan_brooks",
+    "name": "Ethan Brooks",
+    "image": "demo/ethan_brooks.jpg",
+    "mask": "demo/ethan_brooks_mask.png",
+    "intended": "athletic",
+    "sex": "male",
+    "framing": "thigh",
+    "pose": "one_flex",
+    "prediction": {
+      "label": "athletic",
+      "label_display": "Athletic",
+      "confidence": 0.9737595319747925,
+      "probabilities": {
+        "athletic": 0.9737595319747925,
+        "normal": 0.009770477190613747,
+        "obese": 0.0066319964826107025,
+        "skinny": 0.009837981313467026
+      },
+      "runner_up": "skinny",
+      "borderline": false,
+      "metrics": {
+        "shoulder_width_pct_height": 33.4,
+        "waist_width_pct_height": 25.5,
+        "hip_width_pct_height": 24.9,
+        "shoulder_to_waist": 1.31,
+        "waist_to_hip": 1.02,
+        "silhouette_fill": 0.519,
+        "aspect_w_h": 0.671,
+        "arms_separate": false,
+        "reliable": false
+      },
+      "warnings": [
+        "Head to mid-thigh visible (about 65% of the body). Supported, but a head-to-feet photo is more reliable."
+      ],
+      "framing": {
+        "visible": 0.646,
+        "name": "thigh",
+        "label": "Head to mid-thigh"
+      },
+      "checks": [
+        {
+          "id": "resolution",
+          "name": "Resolution",
+          "status": "ok",
+          "detail": "760 x 900 px."
+        },
+        {
+          "id": "aspect",
+          "name": "Orientation",
+          "status": "ok",
+          "detail": "Portrait, width:height 0.84."
+        },
+        {
+          "id": "single",
+          "name": "One person",
+          "status": "ok",
+          "detail": "One person detected."
+        },
+        {
+          "id": "background",
+          "name": "Background",
+          "status": "ok",
+          "detail": "Person separated from the background."
+        },
+        {
+          "id": "size",
+          "name": "Person size",
+          "status": "ok",
+          "detail": "The person fills 95% of the photo height."
+        },
+        {
+          "id": "head",
+          "name": "Head in frame",
+          "status": "ok",
+          "detail": "Head fully visible."
+        },
+        {
+          "id": "centre",
+          "name": "Centred",
+          "status": "ok",
+          "detail": "Person centred, sides of the body in frame."
+        },
+        {
+          "id": "framing",
+          "name": "Framing",
+          "status": "warn",
+          "detail": "Head to mid-thigh visible (about 65% of the body). Supported, but a head-to-feet photo is more reliable."
+        }
+      ],
+      "segmentation": "reference"
+    },
+    "overlay": "demo/ethan_brooks_overlay.jpg",
+    "silhouette": "demo/ethan_brooks_silhouette.png"
+  },
+  {
+    "id": "anika_rai",
+    "name": "Anika Rai",
+    "image": "demo/anika_rai.jpg",
+    "mask": "demo/anika_rai_mask.png",
+    "intended": "normal",
+    "sex": "female",
+    "framing": "knees",
+    "pose": "down",
+    "prediction": {
+      "label": "normal",
+      "label_display": "Normal",
+      "confidence": 0.9751678109169006,
+      "probabilities": {
+        "athletic": 0.007522888015955687,
+        "normal": 0.9751678109169006,
+        "obese": 0.0073094964027404785,
+        "skinny": 0.009999753907322884
+      },
+      "runner_up": "skinny",
+      "borderline": false,
+      "metrics": {
+        "shoulder_width_pct_height": 20.2,
+        "waist_width_pct_height": 17.5,
+        "hip_width_pct_height": 20.4,
+        "shoulder_to_waist": 1.16,
+        "waist_to_hip": 0.86,
+        "silhouette_fill": 0.604,
+        "aspect_w_h": 0.375,
+        "arms_separate": false,
+        "reliable": false
+      },
+      "warnings": [
+        "Head to knees visible (about 78% of the body). Supported, but a head-to-feet photo is more reliable."
+      ],
+      "framing": {
+        "visible": 0.784,
+        "name": "knees",
+        "label": "Head to knees"
+      },
+      "checks": [
+        {
+          "id": "resolution",
+          "name": "Resolution",
+          "status": "ok",
+          "detail": "600 x 900 px."
+        },
+        {
+          "id": "aspect",
+          "name": "Orientation",
+          "status": "ok",
+          "detail": "Portrait, width:height 0.67."
+        },
+        {
+          "id": "single",
+          "name": "One person",
+          "status": "ok",
+          "detail": "One person detected."
+        },
+        {
+          "id": "background",
+          "name": "Background",
+          "status": "ok",
+          "detail": "Person separated from the background."
+        },
+        {
+          "id": "size",
+          "name": "Person size",
+          "status": "ok",
+          "detail": "The person fills 89% of the photo height."
+        },
+        {
+          "id": "head",
+          "name": "Head in frame",
+          "status": "ok",
+          "detail": "Head fully visible."
+        },
+        {
+          "id": "centre",
+          "name": "Centred",
+          "status": "ok",
+          "detail": "Person centred, sides of the body in frame."
+        },
+        {
+          "id": "framing",
+          "name": "Framing",
+          "status": "warn",
+          "detail": "Head to knees visible (about 78% of the body). Supported, but a head-to-feet photo is more reliable."
+        }
+      ],
+      "segmentation": "reference"
+    },
+    "overlay": "demo/anika_rai_overlay.jpg",
+    "silhouette": "demo/anika_rai_silhouette.png"
+  }
+]

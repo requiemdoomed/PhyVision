@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fitness guides | PhyVision</title>
+<meta name="author" content="Swayam Shakya">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/phyvision.css">
+<script src="assets/static_data.js"></script>
+<script src="assets/phyvision.js"></script>
+</head>
+<body>
+<a class="sr-only" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="../index.html" aria-label="PhyVision home">
+      <img src="assets/logo.svg" alt="" width="30" height="30">
+      <span>PhyVision <small>by Swayam Shakya</small></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="../index.html">Control center</a>
+      <a href="app.html">Analyze a photo</a>
+      <a href="photo-guide.html">Photo guide</a>
+      <a href="guides.html" aria-current="page">Fitness guides</a>
+    </nav>
+    <button class="theme-btn" type="button" data-theme-toggle>Dark mode</button>
+  </div>
+</header>
+
+<main id="main" class="wrap" style="padding-top:36px;padding-bottom:56px">
+  <h1 style="font-size:clamp(2rem,4.5vw,3.2rem)">Fitness guides for every physique</h1>
+  <p class="muted">Each PhyVision result links to one of these four guides. Choose a body type to see its goals, a sample training week, key exercises, nutrition advice and safety notes.</p>
+  <nav class="guide-tabs" id="tabs" aria-label="Physique guides"></nav>
+  <div id="guide"></div>
+  <div class="notice" id="disc" style="margin-top:22px"></div>
+  <p><a class="btn primary" href="app.html">Analyze a photo</a></p>
+</main>
+
+<footer><div class="wrap"><div><strong>PhyVision</strong> by Swayam Shakya. MIT License.</div></div></footer>
+
+<script>
+(async function () {
+  await PV.status();
+  const g = await PV.guides();
+  document.getElementById("disc").textContent = g.disclaimer;
+  const tabs = document.getElementById("tabs");
+  tabs.innerHTML = PV.CLASS_ORDER.map((c) => `<a href="#${c}" class="c-${c}" data-c="${c}"><span class="chip">${PV.LABEL[c]}</span></a>`).join("");
+  function render() {
+    const key = PV.CLASS_ORDER.includes(location.hash.slice(1)) ? location.hash.slice(1) : "skinny";
+    tabs.querySelectorAll("a").forEach((a) => a.setAttribute("aria-current", String(a.dataset.c === key)));
+    document.getElementById("guide").innerHTML = PV.guideHTML(g.classes[key], key);
+  }
+  window.addEventListener("hashchange", render);
+  render();
+})();
+</script>
+</body>
+</html>

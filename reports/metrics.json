@@ -1,0 +1,257 @@
+{
+  "version": "5.1.0",
+  "model": "PhyNet (ResNet-18 silhouette branch + shape-profile MLP + framing head)",
+  "checkpoint_epoch": 16,
+  "best_val_acc": 0.968,
+  "dataset_counts": {
+    "train": {
+      "athletic": 2000,
+      "normal": 2000,
+      "obese": 2000,
+      "skinny": 2000
+    },
+    "val": {
+      "athletic": 1000,
+      "normal": 1000,
+      "obese": 1000,
+      "skinny": 1000
+    },
+    "test": {
+      "athletic": 1000,
+      "normal": 1000,
+      "obese": 1000,
+      "skinny": 1000
+    }
+  },
+  "reference_masks": {
+    "accuracy": 0.97,
+    "per_class": {
+      "athletic": {
+        "precision": 0.9830677290836654,
+        "recall": 0.987,
+        "f1-score": 0.9850299401197605,
+        "support": 1000.0
+      },
+      "normal": {
+        "precision": 0.9357072205736894,
+        "recall": 0.946,
+        "f1-score": 0.9408254599701641,
+        "support": 1000.0
+      },
+      "obese": {
+        "precision": 1.0,
+        "recall": 0.998,
+        "f1-score": 0.998998998998999,
+        "support": 1000.0
+      },
+      "skinny": {
+        "precision": 0.961499493414387,
+        "recall": 0.949,
+        "f1-score": 0.9552088575742325,
+        "support": 1000.0
+      }
+    },
+    "macro_f1": 0.970015814165789,
+    "weighted_f1": 0.9700158141657891,
+    "confusion_matrix": [
+      [
+        987,
+        13,
+        0,
+        0
+      ],
+      [
+        16,
+        946,
+        0,
+        38
+      ],
+      [
+        1,
+        1,
+        998,
+        0
+      ],
+      [
+        0,
+        51,
+        0,
+        949
+      ]
+    ],
+    "n": 4000,
+    "framing_mae": 0.004222359053790569,
+    "by_framing": {
+      "full": {
+        "n": 2042,
+        "accuracy": 0.9774730656219393
+      },
+      "knees": {
+        "n": 575,
+        "accuracy": 0.9739130434782609
+      },
+      "thigh": {
+        "n": 774,
+        "accuracy": 0.9521963824289406
+      },
+      "waist": {
+        "n": 609,
+        "accuracy": 0.9638752052545156
+      }
+    }
+  },
+  "photo_pipeline_grabcut": {
+    "accuracy": 0.8133333333333334,
+    "per_class": {
+      "athletic": {
+        "precision": 0.8450704225352113,
+        "recall": 0.8,
+        "f1-score": 0.821917808219178,
+        "support": 150.0
+      },
+      "normal": {
+        "precision": 0.6909090909090909,
+        "recall": 0.76,
+        "f1-score": 0.7238095238095238,
+        "support": 150.0
+      },
+      "obese": {
+        "precision": 0.8819875776397516,
+        "recall": 0.9466666666666667,
+        "f1-score": 0.9131832797427653,
+        "support": 150.0
+      },
+      "skinny": {
+        "precision": 0.8484848484848485,
+        "recall": 0.7466666666666667,
+        "f1-score": 0.7943262411347518,
+        "support": 150.0
+      }
+    },
+    "macro_f1": 0.8133092132265547,
+    "weighted_f1": 0.8133092132265548,
+    "confusion_matrix": [
+      [
+        120,
+        15,
+        13,
+        2
+      ],
+      [
+        13,
+        114,
+        5,
+        18
+      ],
+      [
+        4,
+        4,
+        142,
+        0
+      ],
+      [
+        5,
+        32,
+        1,
+        112
+      ]
+    ],
+    "n": 600,
+    "no_person_found": 0,
+    "by_framing": {
+      "full": {
+        "n": 305,
+        "accuracy": 0.8
+      },
+      "knees": {
+        "n": 83,
+        "accuracy": 0.8192771084337349
+      },
+      "thigh": {
+        "n": 113,
+        "accuracy": 0.7964601769911505
+      },
+      "waist": {
+        "n": 99,
+        "accuracy": 0.8686868686868687
+      }
+    }
+  },
+  "photo_pipeline_rembg": {
+    "accuracy": 0.88,
+    "per_class": {
+      "athletic": {
+        "precision": 0.927007299270073,
+        "recall": 0.8466666666666667,
+        "f1-score": 0.8850174216027874,
+        "support": 150.0
+      },
+      "normal": {
+        "precision": 0.8037974683544303,
+        "recall": 0.8466666666666667,
+        "f1-score": 0.8246753246753247,
+        "support": 150.0
+      },
+      "obese": {
+        "precision": 0.9403973509933775,
+        "recall": 0.9466666666666667,
+        "f1-score": 0.9435215946843853,
+        "support": 150.0
+      },
+      "skinny": {
+        "precision": 0.8571428571428571,
+        "recall": 0.88,
+        "f1-score": 0.868421052631579,
+        "support": 150.0
+      }
+    },
+    "macro_f1": 0.8804088483985191,
+    "weighted_f1": 0.8804088483985191,
+    "confusion_matrix": [
+      [
+        127,
+        14,
+        3,
+        6
+      ],
+      [
+        4,
+        127,
+        5,
+        14
+      ],
+      [
+        5,
+        1,
+        142,
+        2
+      ],
+      [
+        1,
+        16,
+        1,
+        132
+      ]
+    ],
+    "n": 600,
+    "no_person_found": 0,
+    "by_framing": {
+      "full": {
+        "n": 305,
+        "accuracy": 0.8819672131147541
+      },
+      "knees": {
+        "n": 83,
+        "accuracy": 0.9518072289156626
+      },
+      "thigh": {
+        "n": 113,
+        "accuracy": 0.8672566371681416
+      },
+      "waist": {
+        "n": 99,
+        "accuracy": 0.8282828282828283
+      }
+    }
+  }
+}

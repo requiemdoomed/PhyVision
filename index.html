@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PhyVision Control Center</title>
+<meta name="description" content="PhyVision by Swayam Shakya: classify human physique (Athletic, Normal, Obese, Skinny) from one full-body photo and get a matching fitness guide.">
+<meta name="author" content="Swayam Shakya">
+<link rel="icon" href="web/assets/logo.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="web/assets/phyvision.css">
+<script src="web/assets/static_data.js"></script>
+<script src="web/assets/phyvision.js"></script>
+</head>
+<body>
+<a class="sr-only" href="#main">Skip to content</a>
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="index.html" aria-label="PhyVision home">
+      <img src="web/assets/logo.svg" alt="" width="30" height="30">
+      <span>PhyVision <small>by Swayam Shakya</small></span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="index.html" aria-current="page">Control center</a>
+      <a href="web/app.html">Analyze a photo</a>
+      <a href="web/photo-guide.html">Photo guide</a>
+      <a href="web/guides.html">Fitness guides</a>
+      <a href="#docs">How to run</a>
+    </nav>
+    <button class="theme-btn" type="button" data-theme-toggle>Dark mode</button>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <h1>Read a body's shape from a single photo.</h1>
+        <p class="lede">PhyVision finds the person in a full-body photo, turns them into a clean silhouette, measures their proportions and classifies the physique as Athletic, Normal, Obese or Skinny. Then it gives you a fitness guide written for that body type.</p>
+        <div class="row">
+          <a class="btn primary" href="web/app.html">Analyze a photo</a>
+          <a class="btn" href="web/guides.html">Browse fitness guides</a>
+        </div>
+        <p class="byline">Created and authored by <strong>Swayam Shakya</strong>. Version <span data-version>5.1.0</span>. Built on the COSC-4427 Human Physique Identifier (v4.0, Algoma University).</p>
+      </div>
+      <figure class="figure-plate" aria-label="Example: a demo person with shoulder, waist and hip measurement lines">
+        <div class="ruler" aria-hidden="true"></div>
+        <div class="plate-img">
+          <img id="heroImg" src="web/demo/john_bahadur.jpg" alt="Demo person John Bahadur, a rendered full-body figure">
+          <div class="measure sweep" data-m="shoulder" style="top:24%"><span>Shoulders</span></div>
+          <div class="measure sweep" data-m="waist" style="top:42%"><span>Waist</span></div>
+          <div class="measure sweep" data-m="hip" style="top:51%"><span>Hips</span></div>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <section id="status">
+    <div class="wrap">
+      <div class="row" style="justify-content:space-between">
+        <h2>System status</h2>
+        <button class="btn small" type="button" id="refresh">Check again</button>
+      </div>
+      <p class="muted">This page is the control center for every part of the project: the server, the trained model, the dataset, the notebook and the source files.</p>
+      <div class="status-grid" id="statusGrid" aria-live="polite">
+        <div class="stat"><span class="k">Checking the server…</span></div>
+      </div>
+      <div id="offlineHelp" class="notice" hidden>
+        <strong>You are viewing PhyVision offline.</strong> The demo gallery, model metrics and fitness guides still work. To classify your own photos, start the server from the project folder and open the address it prints:
+        <pre><code>pip install -r requirements.txt
+python app.py</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <section id="how">
+    <div class="wrap">
+      <h2>How a photo becomes a result</h2>
+      <p class="muted">PhyVision reads body shape, not faces, skin tone or clothing colour. Each upload goes through the same five stages.</p>
+      <ol class="steps">
+        <li><h3>Find the person</h3><p>The background is removed with rembg's human segmentation model, or with OpenCV GrabCut when working offline. Transparent PNG cut-outs are used as they are.</p></li>
+        <li><h3>Clean the silhouette</h3><p>Stray blobs are dropped, holes are filled, and the body is cropped and scaled to a standard 128 × 128 frame.</p></li>
+        <li><h3>Measure proportions</h3><p>The width of the body is measured at 48 heights, from head to feet, giving shoulder, waist and hip ratios.</p></li>
+        <li><h3>Classify with PhyNet</h3><p>A ResNet-18 reads the silhouette while a second network reads the measurements. It was fine-tuned on real segmenter output, so imperfect cut-outs are expected.</p></li>
+        <li><h3>Guide the next step</h3><p>You get a training week, key exercises, nutrition advice and safety notes matched to the predicted physique.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="photo">
+    <div class="wrap grid-2" style="align-items:center">
+      <div>
+        <h2>Taking the photo</h2>
+        <p class="muted">The model reads the outline of the body, so the photo matters as much as the model. Use a portrait photo (about 2:3 or 3:4) of one person standing straight and facing the camera, head to feet in frame and filling 75-95% of the height, arms slightly away from the body, in fitted clothes against a plain background.</p>
+        <p class="muted">Photos cropped at the knees or mid-thigh are supported, and the app tells you which framing it detected. Every result includes a photo check against these rules.</p>
+        <p><a class="btn" href="web/photo-guide.html">Read the photo guide</a></p>
+      </div>
+      <div class="panel" style="display:grid;place-items:center"><div id="homeDiagram" style="width:100%;max-width:340px"></div></div>
+    </div>
+  </section>
+
+  <section id="model">
+    <div class="wrap">
+      <h2>Model performance</h2>
+      <p class="muted">Measured on the held-out test split, which the model never saw during training or model selection.</p>
+      <div class="status-grid" id="metricStats"></div>
+      <div class="grid-2" style="margin-top:22px">
+        <div class="panel">
+          <h3>Per-class results (test set)</h3>
+          <div class="table-wrap"><table id="perClass"><caption class="sr-only">Precision, recall and F1 per class</caption></table></div>
+        </div>
+        <div class="panel">
+          <h3>Confusion matrix</h3>
+          <img class="plot" src="reports/confusion_matrix.png" alt="Confusion matrix of predicted versus actual physique classes on the test set" loading="lazy">
+        </div>
+      </div>
+      <div class="panel" style="margin-top:22px">
+        <h3>Accuracy by photo framing</h3>
+        <p class="small muted">How much of the body is in the photo. End-to-end columns cut the person out of the raw test photo from scratch.</p>
+        <div class="table-wrap"><table id="framingTable"><caption class="sr-only">Accuracy by framing</caption></table></div>
+      </div>
+      <div class="grid-2" style="margin-top:22px">
+        <div class="panel">
+          <h3>Training curves</h3>
+          <img class="plot" src="reports/training_curves.png" alt="Training and validation loss and accuracy by epoch" loading="lazy">
+        </div>
+        <div class="panel">
+          <h3>Full photo pipeline</h3>
+          <p class="small muted">Here the person is cut out of the raw test photo from scratch, exactly as an upload would be, instead of using the reference mask. These are the honest end-to-end numbers.</p>
+          <img class="plot" id="rembgPlot" hidden src="reports/confusion_matrix_rembg_pipeline.png" alt="Confusion matrix for the end-to-end rembg photo pipeline" loading="lazy" style="margin-bottom:10px">
+          <img class="plot" src="reports/confusion_matrix_photo_pipeline.png" alt="Confusion matrix for the end-to-end GrabCut photo pipeline" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="dataset">
+    <div class="wrap">
+      <div class="row" style="justify-content:space-between">
+        <h2>Dataset</h2>
+        <button class="btn small" type="button" id="shuffle" hidden>Show other samples</button>
+      </div>
+      <p class="muted">The PhyVision dataset is AI-generated: every person is rendered by <code>src/phyvision/synth.py</code> from body measurements drawn per class, with randomised sex, skin tone, hair, clothing, looseness of fit, arm pose, background, lighting, camera tilt and sensor noise. Each image comes with an exact label and a pixel-perfect mask. Train, validation and test people are created from separate random seeds, so no person appears in more than one split.</p>
+      <div class="table-wrap panel" style="margin:18px 0"><table id="countTable"></table></div>
+      <div id="samples"></div>
+    </div>
+  </section>
+
+  <section id="files">
+    <div class="wrap">
+      <h2>Project files</h2>
+      <p class="muted">Everything in the repository and what it does. Links open the file when the server is running, or from disk when browsing offline.</p>
+      <div class="table-wrap panel"><table id="fileTable"></table></div>
+    </div>
+  </section>
+
+  <section id="docs">
+    <div class="wrap grid-2">
+      <div>
+        <h2>How to run PhyVision</h2>
+        <p>You need Python 3.10 or newer.</p>
+        <pre><code># 1. install
+pip install -r requirements.txt
+
+# 2. start the web app (opens your browser)
+python app.py
+
+# optional: classify from the command line
+python scripts/predict.py web/demo/john_bahadur.jpg</code></pre>
+        <p class="muted small">The trained model and the full dataset ship with the repository, so nothing needs to be trained before you start. To rebuild everything from scratch (the README lists every option):</p>
+        <pre><code>python scripts/generate_dataset.py      # 16,000 images
+python scripts/train.py                 # stage 1: shape
+python scripts/build_segmenter_masks.py --method rembg --split train
+python scripts/finetune.py              # stage 2: real segmenters
+python scripts/evaluate.py              # writes reports/
+python scripts/build_hash_db.py      # integrity check
+python scripts/make_demos.py         # demo people
+python scripts/build_static.py       # offline data</code></pre>
+      </div>
+      <div>
+        <h2>Good photos, good results</h2>
+        <ul>
+          <li>One person, standing upright, facing the camera, arms slightly away from the body.</li>
+          <li>The whole body in frame, head to feet.</li>
+          <li>Fitted clothing. Baggy clothes hide your real shape.</li>
+          <li>A plain background helps, especially offline.</li>
+          <li>The first analysis downloads rembg's segmentation model (about 170 MB) once. Without it, PhyVision uses GrabCut.</li>
+        </ul>
+        <div class="notice">
+          <strong>What PhyVision is not.</strong> It estimates shape from a 2-D outline. It does not measure body fat, weight or health, and it is not a medical device. Photos you analyze are processed on your own computer and are never uploaded anywhere else.
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><strong>PhyVision</strong> was created and authored by Swayam Shakya. Released under the MIT License.</div>
+    <div>Based on the COSC-4427-W02 Computational Vision project "Human Physique Identifier", Algoma University. Demo people are fictional, computer-rendered figures.</div>
+  </div>
+</footer>
+
+<script>
+(async function () {
+  const grid = document.getElementById("statusGrid");
+  const S = PV.static;
+
+  function statCard(k, v, dotCls) {
+    return `<div class="stat"><span class="k">${dotCls ? `<span class="dot ${dotCls}"></span>` : ""}${PV.esc(k)}</span><b>${v}</b></div>`;
+  }
+
+  async function renderStatus() {
+    grid.innerHTML = '<div class="stat"><span class="k">Checking the server…</span></div>';
+    const s = await PV.status();
+    document.getElementById("offlineHelp").hidden = !!s;
+    const counts = (s && s.dataset) || S.dataset_counts || {};
+    const total = Object.values(counts).reduce((a, sp) => a + Object.values(sp).reduce((x, y) => x + y, 0), 0);
+    const m = S.metrics;
+    if (s) {
+      grid.innerHTML =
+        statCard("Web server", "Running", "ok") +
+        statCard("Model", s.model_loaded ? "Loaded" : "Missing", s.model_loaded ? "ok" : "bad") +
+        statCard(s.segmentation.rembg ? "Segmentation (GrabCut fallback)" : "Segmentation", s.segmentation.rembg ? "rembg" : "GrabCut", s.segmentation.rembg ? "ok" : "warn") +
+        statCard("Dataset images", total.toLocaleString()) +
+        statCard("Test accuracy", PV.pct(s.test_accuracy));
+      if (s.model_error) grid.insertAdjacentHTML("beforeend", `<div class="notice bad">${PV.esc(s.model_error)}</div>`);
+    } else {
+      grid.innerHTML =
+        statCard("Web server", "Not running", "warn") +
+        statCard("Model file", S.model_present ? "In repository" : "Missing", S.model_present ? "ok" : "bad") +
+        statCard("Dataset images", total.toLocaleString()) +
+        statCard("Test accuracy", m ? PV.pct(m.reference_masks.accuracy) : "n/a");
+    }
+    return s;
+  }
+
+  async function renderMetrics() {
+    const m = await PV.metrics();
+    if (!m) { document.getElementById("metricStats").innerHTML = '<div class="notice">No evaluation report yet. Run <code>python scripts/evaluate.py</code>.</div>'; return; }
+    const r = m.reference_masks, p = m.photo_pipeline_grabcut;
+    document.getElementById("metricStats").innerHTML =
+      statCard("Test accuracy (reference masks)", PV.pct(r.accuracy, 2)) +
+      statCard("Macro F1", r.macro_f1.toFixed(3)) +
+      statCard("Test images", r.n.toLocaleString()) +
+      statCard("End-to-end with GrabCut", PV.pct(p.accuracy, 1)) +
+      (m.photo_pipeline_rembg ? statCard("End-to-end with rembg", PV.pct(m.photo_pipeline_rembg.accuracy, 1)) : "");
+    if (m.photo_pipeline_rembg) document.getElementById("rembgPlot").hidden = false;
+    const fr = [["full", "Head to feet"], ["knees", "Head to knees"], ["thigh", "Head to mid-thigh"], ["waist", "Waist up"]];
+    const cell = (o, k) => (o && o.by_framing && o.by_framing[k]) ? `${PV.pct(o.by_framing[k].accuracy)} <span class="muted small">(${o.by_framing[k].n})</span>` : "n/a";
+    document.getElementById("framingTable").innerHTML = "<thead><tr><th>Framing</th><th class='num'>Exact masks</th><th class='num'>End to end, rembg</th><th class='num'>End to end, GrabCut</th></tr></thead><tbody>" +
+      fr.map(([k, n]) => `<tr><td>${n}</td><td class="num">${cell(r, k)}</td><td class="num">${cell(m.photo_pipeline_rembg, k)}</td><td class="num">${cell(p, k)}</td></tr>`).join("") + "</tbody>";
+    document.getElementById("perClass").insertAdjacentHTML("beforeend",
+      "<thead><tr><th>Class</th><th class='num'>Precision</th><th class='num'>Recall</th><th class='num'>F1</th><th class='num'>Images</th></tr></thead><tbody>" +
+      PV.CLASS_ORDER.map((c) => { const x = r.per_class[c]; return `<tr><td><span class="chip c-${c}">${PV.LABEL[c]}</span></td><td class="num">${x.precision.toFixed(3)}</td><td class="num">${x.recall.toFixed(3)}</td><td class="num">${x["f1-score"].toFixed(3)}</td><td class="num">${x.support}</td></tr>`; }).join("") + "</tbody>");
+  }
+
+  function renderCounts(counts) {
+    const splits = ["train", "val", "test"];
+    const name = { train: "Train", val: "Validation", test: "Test" };
+    let html = "<thead><tr><th>Class</th>" + splits.map((s) => `<th class='num'>${name[s]}</th>`).join("") + "<th class='num'>Total</th></tr></thead><tbody>";
+    PV.CLASS_ORDER.forEach((c) => {
+      const row = splits.map((s) => (counts[s] || {})[c] || 0);
+      html += `<tr><td><span class="chip c-${c}">${PV.LABEL[c]}</span></td>${row.map((v) => `<td class='num'>${v.toLocaleString()}</td>`).join("")}<td class='num'><b>${row.reduce((a, b) => a + b, 0).toLocaleString()}</b></td></tr>`;
+    });
+    const tot = splits.map((s) => Object.values(counts[s] || {}).reduce((a, b) => a + b, 0));
+    html += `<tr><td><b>All</b></td>${tot.map((v) => `<td class='num'><b>${v.toLocaleString()}</b></td>`).join("")}<td class='num'><b>${tot.reduce((a, b) => a + b, 0).toLocaleString()}</b></td></tr></tbody>`;
+    document.getElementById("countTable").innerHTML = html;
+  }
+
+  async function renderSamples(live) {
+    let sets = S.samples || {};
+    if (live) { try { sets = await PV.api("/api/samples?split=test&n=6"); } catch (e) { /* keep static */ } }
+    const host = document.getElementById("samples");
+    host.innerHTML = PV.CLASS_ORDER.map((c) => `
+      <h3 style="margin-top:18px"><span class="chip c-${c}">${PV.LABEL[c]}</span></h3>
+      <div class="sample-grid">${(sets[c] || []).map((u) => `<figure><img src="${live ? u : u.replace(/^\//, "")}" alt="${PV.LABEL[c]} example from the dataset"></figure>`).join("")}</div>`).join("");
+  }
+
+  async function renderFiles() {
+    const list = await PV.files();
+    document.getElementById("fileTable").innerHTML = "<thead><tr><th>File</th><th>What it does</th></tr></thead><tbody>" +
+      list.map((f) => `<tr><td><a href="${PV.esc(f.path)}">${PV.esc(f.path)}</a></td><td>${PV.esc(f.role)}</td></tr>`).join("") + "</tbody>";
+  }
+
+  if (S.hero) document.querySelectorAll(".measure[data-m]").forEach((el) => { const v = S.hero[el.dataset.m]; if (v != null) el.style.top = (v * 100).toFixed(1) + "%"; });
+  document.getElementById("homeDiagram").innerHTML = PV.frameDiagram();
+  const s = await renderStatus();
+  if (s && s.version) document.querySelector("[data-version]").textContent = s.version;
+  renderCounts((s && s.dataset) || S.dataset_counts || {});
+  renderMetrics();
+  renderSamples(!!s);
+  renderFiles();
+  const sh = document.getElementById("shuffle");
+  if (s) { sh.hidden = false; sh.onclick = () => renderSamples(true); }
+  document.getElementById("refresh").onclick = renderStatus;
+})();
+</script>
+</body>
+</html>

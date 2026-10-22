@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="PhyVision logo">
+  <rect x="2" y="2" width="60" height="60" rx="14" fill="#1c2433"/>
+  <rect x="8" y="8" width="8" height="48" rx="2" fill="#e8b931"/>
+  <g stroke="#3d2f05" stroke-width="1.5">
+    <line x1="8" y1="14" x2="14" y2="14"/><line x1="8" y1="20" x2="12" y2="20"/>
+    <line x1="8" y1="26" x2="14" y2="26"/><line x1="8" y1="32" x2="12" y2="32"/>
+    <line x1="8" y1="38" x2="14" y2="38"/><line x1="8" y1="44" x2="12" y2="44"/>
+    <line x1="8" y1="50" x2="14" y2="50"/>
+  </g>
+  <circle cx="38" cy="15" r="5" fill="#eef1ec"/>
+  <path d="M27 23 Q38 20 49 23 L46 34 Q44 39 45 42 L41 42 L40 56 L36 56 L35 42 L31 42 Q32 39 30 34 Z" fill="#eef1ec"/>
+  <line x1="22" y1="24" x2="54" y2="24" stroke="#e8b931" stroke-width="2" stroke-dasharray="3 2"/>
+  <line x1="22" y1="36" x2="54" y2="36" stroke="#e8b931" stroke-width="2" stroke-dasharray="3 2"/>
+</svg>
