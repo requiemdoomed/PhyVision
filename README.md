@@ -22,7 +22,7 @@
 
 PhyVision looks at a photo of one person, cuts the person out of the background, measures the shape of their silhouette and classifies the physique as **Athletic**, **Normal**, **Obese** or **Skinny**. Every result comes with class probabilities, the detected photo framing, a photo check against the photo guide, proportion estimates (shoulder-to-waist, waist-to-hip, shown when both arms are held away from the body) and a **fitness guide** for that body type: goals, a sample training week, key exercises, nutrition advice, a sample day of eating, recovery habits and safety notes.
 
-It is the rebuilt, advanced version of the *Human Physique Identifier* v4.0 (COSC-4427-W02 Computational Vision, Algoma University). The original report and notebook are kept in [`docs/`](docs/) and [`legacy/`](legacy/).
+It is the rebuilt, advanced version of the *Human Physique Identifier* v4.0 (COSC-4427-W02 Computational Vision, Algoma University).
 
 <p align="center">
   <img src="docs/images/demo_people.png" alt="The demo people with their PhyVision predictions" width="100%">
@@ -144,24 +144,6 @@ Fictional, computer-rendered people are included for testing. They are not photo
 | Ethan Brooks | Cropped at mid-thigh, bicep flex | `web/demo/ethan_brooks.jpg` |
 | Anika Rai | Cropped at the knees | `web/demo/anika_rai.jpg` |
 
-### API
-
-`python app.py` also exposes a small JSON API.
-
-| Method and path | Description |
-|---|---|
-| `GET /api/status` | Server, model, segmentation and dataset status |
-| `POST /api/classify` | Multipart form: `image` (file) or `demo_id`, optional `seg` = `auto` / `rembg` / `grabcut`. Returns label, confidence, probabilities, framing, photo checks, metrics, images (data URLs) and the fitness guide |
-| `GET /api/demos` | Demo people |
-| `GET /api/guides` | All fitness guides |
-| `GET /api/metrics` | Test metrics and training history |
-| `GET /api/samples?split=test&n=6` | Random dataset images per class |
-| `GET /api/files` | Project file manifest |
-
-```bash
-curl -F "image=@photo.jpg" http://127.0.0.1:5000/api/classify
-```
-
 ## How it works
 
 ```
@@ -178,14 +160,6 @@ photo ─► find the person ─► clean silhouette ─► 128×128 frame ─�
 5. **Classify.** PhyNet combines a ResNet-18 (single-channel, 512 features) reading the silhouette with an MLP (64 features) reading the profile. A class head gives 4 probabilities; a framing head estimates the fraction of the body in the photo. The silhouette and its mirror image are averaged at test time.
 
 Classifying the outline rather than raw pixels makes the decision independent of face, skin tone and clothing colour, and lets a model trained on rendered people transfer to photos. Learning the framing tells the model how to read a photo cropped at the knees or thighs, where the torso fills more of the outline.
-
-Training runs in two stages:
-
-- **Stage 1, shape:** exact masks with segmentation-error augmentation. Loss = cross-entropy (label smoothing 0.05) + 2 × L1 framing error. AdamW (lr 2e-3, weight decay 1e-4), one-cycle cosine schedule, batch 64, 16 epochs.
-- **Stage 2, real segmenters:** every training photo was cut out again from scratch, half by rembg and half by GrabCut (7,985 masks). PhyNet was fine-tuned on a 50/50 mix of exact and segmenter masks in two rounds (12 epochs in total, lr 4e-4 then 3e-4). Validation accuracy on segmenter masks went from 72.7% to 87.4%, with 96.1% on exact masks.
-- **Weight averaging:** the released model averages the weights of the best checkpoint of each round (`scripts/average_checkpoints.py`). With mirror averaging it scores 88.2% on validation segmenter masks and 96.8% on exact masks, a tie with round 2 alone (88.2% and 97.1%). Because the two tied, a real stock photo was used to choose: round 2 alone flipped between Skinny and Athletic on it, while the averaged model was consistently Skinny across 12 variants of the photo.
-
-The checkpoint is chosen on validation data; the test split is used once, for the final report.
 
 ## Dataset
 
@@ -233,63 +207,6 @@ Framing estimate: mean absolute error 0.004 (fraction of body height) on the tes
 
 These numbers are measured on rendered people. Accuracy on real photographs has not been measured on a labelled set and will be lower; it depends mainly on following the photo guide and on how cleanly the person is cut out. See the [model card](docs/MODEL_CARD.md).
 
-## Project structure
-
-```
-PhyVision/
-├── index.html                  main control center (open this first)
-├── app.py                      Flask server + JSON API
-├── web/
-│   ├── app.html                analyzer
-│   ├── photo-guide.html        how to take the photo
-│   ├── guides.html             fitness guide library
-│   ├── assets/                 CSS, JS, logo, guides.json, offline data
-│   └── demo/                   demo people (images, masks, demos.json)
-├── src/phyvision/
-│   ├── synth.py                procedural person renderer (dataset generator)
-│   ├── silhouette.py           segmentation, normalisation, shape measurements
-│   ├── model.py                PhyNet (class head + framing head)
-│   ├── dataset.py              PyTorch dataset + segmentation-error augmentation
-│   ├── train.py / finetune.py  stage 1 and stage 2 training
-│   ├── evaluate.py             test evaluation and report figures
-│   ├── inference.py            Predictor API + photo check
-│   ├── integrity.py            MD5 training-image check
-│   ├── guides.py / config.py
-├── scripts/                    command-line entry points
-├── notebooks/PhyVision.ipynb   end-to-end notebook (with outputs)
-├── data/phyvision_dataset/     16,000 images, exact masks, segmenter masks, metadata.csv
-├── models/                     trained weights + training-image hashes
-├── reports/                    metrics.json, confusion matrices, curves
-├── docs/                       model card, dataset card, images, v4.0 report
-└── legacy/                     original v4.0 notebook
-```
-
-## Rebuild from scratch
-
-```bash
-python scripts/generate_dataset.py   # 16,000 images (about 1 hour on 2 CPU cores)
-python scripts/train.py --epochs 16  # stage 1 (about 1.5 hours on a laptop CPU)
-
-# stage 2: cut training photos out with the real segmenters, then fine-tune
-python scripts/build_segmenter_masks.py --method rembg   --split train --start 0    --count 500
-python scripts/build_segmenter_masks.py --method grabcut --split train --start 500  --count 500
-python scripts/build_segmenter_masks.py --method rembg   --split val   --start 0    --count 100
-python scripts/build_segmenter_masks.py --method grabcut --split val   --start 100  --count 100
-python scripts/finetune.py --epochs 6                              # round 1
-python scripts/build_segmenter_masks.py --method rembg   --split train --start 1000 --count 500
-python scripts/build_segmenter_masks.py --method grabcut --split train --start 1500 --count 500
-python scripts/finetune.py --append --epochs 6 --lr 3e-4 --seed 11 # round 2
-# keep a copy of each round's best checkpoint, then average them
-python scripts/average_checkpoints.py round1_best.pt round2_best.pt --out models/phyvision_phynet.pt
-
-python scripts/evaluate.py           # reports/ and metrics.json
-python scripts/build_hash_db.py      # MD5 integrity database
-python scripts/make_demos.py         # demo people + their predictions
-python scripts/build_static.py       # offline data for the HTML pages
-```
-
-`generate_dataset.py` accepts `--train/--val/--test` sizes for a quicker experiment. To add real photos, place them with masks under `data/phyvision_dataset/<split>/<class>/` using the same `name.jpg` / `name_mask.png` naming, add rows to that split's `metadata.csv` (at least `file` and `visible`), and retrain.
-
 ## Limitations and responsible use
 
 - **Not a medical device.** PhyVision estimates shape from a 2-D outline. It does not measure body fat, weight, muscle or health. The fitness guides are general education; talk to a doctor or registered dietitian before major changes, especially with a medical condition, pregnancy, injury, or if you are under 18.
@@ -297,38 +214,14 @@ python scripts/build_static.py       # offline data for the HTML pages
 - **Four coarse classes.** Real bodies sit on a continuum, and borderline results are flagged as such.
 - **Respect people.** Only analyze photos of yourself or of people who have agreed. Do not use PhyVision to judge, rank or shame anyone.
 
-## Version history
-
-| | v4.0 | v5.0 | v5.1 |
-|---|---|---|---|
-| Data | 50 photos, random split | 16,000 generated people, full body only | 16,000 generated people: realistic body proportions, poses, body turns, 4 framings, plain backdrops, watermarks |
-| Model | ResNet-18, final layer only | PhyNet, two-stage training | PhyNet + framing head, two-stage training |
-| Test accuracy (exact masks) | 73.33% on 8 images (report) | 99.75% (easier, caricatured classes) | 97.00% (realistic classes, all framings) |
-| End to end (rembg) | n/a | 95.25% (full-body photos, caricatured classes) | 88.00% (realistic classes, all framings and poses) |
-| Four real stock photos (one per class) | n/a | skinny photo: Normal (wrong) | all four classified correctly (skinny photo borderline) |
-| Output | label | label, probabilities, proportions, warnings, fitness guide | adds framing, photo check, photo guide |
-| Interface | Colab cells | web app, CLI, notebook, JSON API | adds the photo guide |
-
 ## AI assistance
 
 Claude, an AI model by Anthropic, was used as a learning aid for two parts of this project: building the synthetic dataset generator (`src/phyvision/synth.py`, `scripts/generate_dataset.py`) and the model-training pipeline (`src/phyvision/train.py`, `src/phyvision/finetune.py`, `scripts/build_segmenter_masks.py`, `scripts/average_checkpoints.py`). The dataset images themselves are computer-generated; no photographs of real people were used for training.
 
-## Citation
-
-```bibtex
-@software{shakya_phyvision_2026,
-  author  = {Shakya, Swayam},
-  title   = {PhyVision: Silhouette-Based Human Physique Classification with Fitness Guidance},
-  year    = {2026},
-  version = {5.1.0},
-  license = {MIT}
-}
-```
-
 ## License
 
-Code: [MIT](LICENSE) © 2026 Swayam Shakya. Generated dataset images and masks: CC BY 4.0, attribution "PhyVision dataset by Swayam Shakya". The original v4.0 report in `docs/` remains the author's coursework.
+Code: [MIT](LICENSE) © 2026 Swayam Shakya. Generated dataset images and masks: CC BY 4.0, attribution "PhyVision dataset by Swayam Shakya". 
 
 ## Acknowledgements
 
-He et al., *Deep Residual Learning for Image Recognition* (CVPR 2016); Loshchilov and Hutter, *Decoupled Weight Decay Regularization* (ICLR 2019); [rembg](https://github.com/danielgatis/rembg); OpenCV; PyTorch; the body-shape classification work of Cameron Trotter (Newcastle University) and the Mahsa33 and farazBhatti projects that inspired v4.0; Dr. Omar Al-Buraiki, COSC-4427 Computational Vision, Algoma University.
+He et al., *Deep Residual Learning for Image Recognition* (CVPR 2016); Loshchilov and Hutter, *Decoupled Weight Decay Regularization* (ICLR 2019); [rembg](https://github.com/danielgatis/rembg); OpenCV; PyTorch; the body-shape classification work of Cameron Trotter (Newcastle University) and the Mahsa33 and farazBhatti projects that inspired v4.0.
