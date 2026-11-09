@@ -68,7 +68,6 @@ CLASS_MODS = {
                   belly=(0.040, .012), head=(1.10, .03)),
 }
 
-
 @dataclass
 class BodySpec:
     label: str
@@ -107,7 +106,6 @@ class BodySpec:
         d["waist_hip_ratio"] = round(self.W / self.P, 3)
         return d
 
-
 def _rand_colour(rng, sat=(0.25, 0.85), val=(0.25, 0.95)):
     h = rng.uniform(0, 180)
     s = rng.uniform(*sat) * 255
@@ -115,7 +113,6 @@ def _rand_colour(rng, sat=(0.25, 0.85), val=(0.25, 0.95)):
     hsv = np.uint8([[[h, s, v]]])
     rgb = cv2.cvtColor(hsv, cv2.COLOR_HSV2RGB)[0, 0]
     return tuple(int(c) for c in rgb)
-
 
 def sample_body(label: str, rng: np.random.Generator, sex: str | None = None, pose: str | None = None) -> BodySpec:
     r = rng.random()
@@ -250,7 +247,6 @@ def _capsule_chain(mask, pts, radii, upto: float = 1.0):
             cv2.circle(mask, (int(round(p[0])), int(round(p[1]))), max(1, int(round(r))), 255, -1, cv2.LINE_AA)
         run += seg[i]
 
-
 class _Canvas:
     def __init__(self, w, h, cx, top, height):
         self.w, self.h = w, h
@@ -264,7 +260,6 @@ class _Canvas:
 
     def blank(self):
         return np.zeros((self.h, self.w), np.uint8)
-
 
 def _body_parts(spec: BodySpec, cv: _Canvas):
     """Return dict of part masks (uint8) for the body and clothing regions."""
@@ -394,10 +389,8 @@ def _body_parts(spec: BodySpec, cv: _Canvas):
     parts["silhouette"] = np.maximum.reduce([body, top_m, bottom_m])
     return parts
 
-
 # Backgrounds
 _WM_WORDS = ["stock", "sample", "preview", "photo", "image", "royalty", "demo", "watermark"]
-
 
 def _watermark(img, rng):
     """Faint stock-photo style text overlay."""
@@ -411,7 +404,6 @@ def _watermark(img, rng):
         cv2.putText(layer, word, org, cv2.FONT_HERSHEY_SIMPLEX, scale, col, max(1, int(scale * 2)), cv2.LINE_AA)
     a = rng.uniform(0.12, 0.35)
     return cv2.addWeighted(layer, a, img, 1 - a, 0)
-
 
 def _background(w, h, rng):
     kind = rng.choice(["plain", "studio", "room", "outdoor", "gym"], p=[0.25, 0.2, 0.2, 0.2, 0.15])
@@ -453,7 +445,6 @@ def _background(w, h, rng):
     img *= vign[..., None]
     return img, kind
 
-
 # Rendering
 FRAMINGS = {  # name: (probability, visible fraction of body height range)
     "full": (0.50, (1.0, 1.0)),
@@ -462,13 +453,11 @@ FRAMINGS = {  # name: (probability, visible fraction of body height range)
     "waist": (0.15, (0.47, 0.56)),
 }
 
-
 def sample_framing(rng):
     names = list(FRAMINGS)
     name = rng.choice(names, p=[FRAMINGS[n][0] for n in names])
     lo, hi = FRAMINGS[name][1]
     return str(name), float(rng.uniform(lo, hi))
-
 
 def framing_name(visible: float) -> str:
     if visible >= 0.93:
@@ -478,7 +467,6 @@ def framing_name(visible: float) -> str:
     if visible >= 0.57:
         return "thigh"
     return "waist"
-
 
 def _turn_warp(img, sil, cx, turn):
     """Squeeze one half of the body horizontally to mimic a 3/4 turn."""
@@ -496,7 +484,6 @@ def _turn_warp(img, sil, cx, turn):
     my = np.repeat(np.arange(h, dtype=np.float32)[:, None], w, 1)
     return (cv2.remap(img, mx, my, cv2.INTER_LINEAR, borderValue=0),
             cv2.remap(sil, mx, my, cv2.INTER_LINEAR, borderValue=0))
-
 
 def render(spec: BodySpec, rng: np.random.Generator, out_w=None, out_h=288, ss=3,
            body_frac=None, with_background=True, detail=True, framing=None, watermark=True):
@@ -636,7 +623,6 @@ def render(spec: BodySpec, rng: np.random.Generator, out_w=None, out_h=288, ss=3
     meta["background"] = bg_kind
     meta["roll_deg"] = round(float(angle), 2)
     return out, mask, meta
-
 
 def generate_person(label: str, seed: int, sex: str | None = None, pose: str | None = None, **kw) -> tuple:
     rng = np.random.default_rng(seed)
