@@ -3,6 +3,7 @@
 Writes web/assets/static_data.js (loaded with a <script> tag, so it works even
 when the pages are opened directly from disk) and web/assets/manifest.json.
 """
+
 import json
 import random
 import sys
@@ -53,7 +54,6 @@ MANIFEST = [
     ("LICENSE", "MIT License"),
 ]
 
-
 def main():
     guides = json.loads((config.WEB_DIR / "assets" / "guides.json").read_text(encoding="utf-8"))
     demos_p = config.DEMO_DIR / "demos.json"
@@ -96,7 +96,6 @@ def main():
           "window.PHY_STATIC = " + json.dumps(data, separators=(",", ":")) + ";\n")
     (config.WEB_DIR / "assets" / "static_data.js").write_text(js, encoding="utf-8")
     print("Wrote web/assets/static_data.js and manifest.json")
-
 
 if __name__ == "__main__":
     main()
