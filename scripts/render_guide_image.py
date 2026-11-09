@@ -15,7 +15,6 @@ HTML = """<!doctype html><html data-theme="light"><head><meta charset="utf-8">
 var m=PV.static.metrics; document.getElementById('f').innerHTML=PV.framingStrip(m&&m.photo_pipeline_rembg&&m.photo_pipeline_rembg.by_framing);</script>
 </body></html>"""
 
-
 def main():
     tmp = ROOT / "web" / "_guide_render.html"
     tmp.write_text(HTML.format(web=(ROOT / "web").as_uri()))
@@ -31,7 +30,6 @@ def main():
     finally:
         tmp.unlink(missing_ok=True)
     print("Wrote", out)
-
 
 if __name__ == "__main__":
     main()
