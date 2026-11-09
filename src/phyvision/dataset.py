@@ -5,6 +5,7 @@ errors (eroded/dilated borders, ragged edges, missing feet, stray blobs,
 holes, small rotations, flips). This is what lets a model trained on
 rendered people cope with masks cut out of real photographs.
 """
+
 from __future__ import annotations
 
 import csv
