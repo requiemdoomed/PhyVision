@@ -9,7 +9,7 @@ runs the trained PhyNet model on uploaded photos.
 from __future__ import annotations
 
 import argparse
-import base64 
+import base64
 import json
 import random
 import sys
