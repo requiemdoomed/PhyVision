@@ -19,7 +19,6 @@ from torch.utils.data import Dataset
 from .config import CLASSES, DATA_DIR
 from .silhouette import normalise, shape_profile
 
-
 def list_split(split: str, root: Path = DATA_DIR, kind: str = "reference"):
     """kind='reference' -> exact masks; kind='segmenter' -> masks cut out by
     rembg / GrabCut (see scripts/build_segmenter_masks.py)."""
@@ -29,7 +28,6 @@ def list_split(split: str, root: Path = DATA_DIR, kind: str = "reference"):
         for p in sorted((root / split / c).glob(pattern)):
             items.append((p, ci))
     return items
-
 
 def load_visible(split: str, root: Path = DATA_DIR) -> dict:
     """image stem -> visible body fraction (from metadata.csv)."""
@@ -44,11 +42,9 @@ def load_visible(split: str, root: Path = DATA_DIR) -> dict:
                     out[Path(r["file"]).stem] = 1.0
     return out
 
-
 def _stem(mask_path: Path) -> str:
     n = mask_path.stem
     return n.split("_seg-")[0] if "_seg-" in n else n[: -len("_mask")] if n.endswith("_mask") else n
-
 
 def augment_mask(m: np.ndarray, rng: np.random.Generator):
     """Returns (augmented mask, fraction of the visible body height kept)."""
@@ -89,7 +85,6 @@ def augment_mask(m: np.ndarray, rng: np.random.Generator):
         m = cv2.warpAffine(m, M, (w, h), flags=cv2.INTER_NEAREST)
     return m * 255, keep
 
-
 def to_tensors(mask: np.ndarray):
     sil = normalise(mask)
     prof = shape_profile(mask)
@@ -97,7 +92,6 @@ def to_tensors(mask: np.ndarray):
         return None
     sil_t = torch.from_numpy((sil - 0.5) / 0.5).unsqueeze(0)
     return sil_t, torch.from_numpy(prof)
-
 
 class SilhouetteDataset(Dataset):
     def __init__(self, split: str, augment: bool = False, root: Path = DATA_DIR, seed: int = 0,
