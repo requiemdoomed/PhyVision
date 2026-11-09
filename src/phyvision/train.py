@@ -5,8 +5,9 @@
 
 AI assistance: this training pipeline was developed with help from
 Claude, an AI model by Anthropic, for educational purposes (learning how to
-train a vision model).
+train a computer vision model).
 """
+
 from __future__ import annotations
 
 import argparse
@@ -22,9 +23,7 @@ from .config import CHECKPOINT, CLASSES, REPORTS_DIR, MODELS_DIR, VERSION
 from .dataset import SilhouetteDataset
 from .model import PhyNet
 
-
 FRAMING_WEIGHT = 2.0
-
 
 def run_epoch(model, loader, crit, opt=None, sched=None, stats=None):
     """One pass over `loader`. Loss = cross-entropy + FRAMING_WEIGHT * L1(framing).
@@ -48,7 +47,6 @@ def run_epoch(model, loader, crit, opt=None, sched=None, stats=None):
     if stats is not None:
         stats["framing_mae"] = ferr / tot
     return loss_sum / tot, correct / tot
-
 
 def main(argv=None):
     ap = argparse.ArgumentParser()
@@ -100,7 +98,6 @@ def main(argv=None):
         with open(REPORTS_DIR / "history.json", "w") as f:
             json.dump(history, f, indent=1)
     print(f"Best val acc {best:.4f}. Saved {CHECKPOINT}")
-
 
 if __name__ == "__main__":
     main()
