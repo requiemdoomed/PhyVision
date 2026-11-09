@@ -4,6 +4,7 @@
     p = Predictor()
     result = p.predict_file("photo.jpg")
 """
+
 from __future__ import annotations
 
 import io
@@ -26,7 +27,6 @@ UPSCALE_BELOW = 600  # px; photos shorter than this are enlarged before segmenta
 FRAMING_LABELS = {"full": "Head to feet", "knees": "Head to knees",
                   "thigh": "Head to mid-thigh", "waist": "Head to waist"}
 
-
 def load_image_bytes(data: bytes) -> np.ndarray:
     """Decode bytes to RGB/RGBA uint8, honouring EXIF rotation from phones."""
     im = Image.open(io.BytesIO(data))
@@ -42,7 +42,6 @@ def load_image_bytes(data: bytes) -> np.ndarray:
     if s < 1:
         arr = cv2.resize(arr, (int(w * s), int(h * s)), interpolation=cv2.INTER_AREA)
     return arr
-
 
 class Predictor:
     def __init__(self, checkpoint: Path = CHECKPOINT, device: str = "cpu"):
@@ -124,7 +123,6 @@ class Predictor:
         data = Path(path).read_bytes()
         mask = cv2.imread(str(mask_path), cv2.IMREAD_GRAYSCALE) if mask_path else None
         return self.predict_bytes(data, mask, seg_method)
-
 
 def photo_checks(rgb: np.ndarray, mask: np.ndarray, visible: float, orig_hw=None) -> list[dict]:
     """Compare an uploaded photo with the PhyVision photo guidelines.
