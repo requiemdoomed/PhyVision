@@ -1,4 +1,5 @@
 """Thin wrapper: python scripts/train.py [args]  (see src/phyvision/train.py)"""
+
 import sys
 from pathlib import Path
 
