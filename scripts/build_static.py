@@ -60,6 +60,7 @@ def main():
     demos = json.loads(demos_p.read_text()) if demos_p.exists() else []
     metrics = json.loads(config.METRICS_JSON.read_text()) if config.METRICS_JSON.exists() else None
     hist = config.REPORTS_DIR / "history.json"
+    
     if metrics and hist.exists():
         metrics["history"] = json.loads(hist.read_text())
     counts = {s: {c: len(list((config.DATA_DIR / s / c).glob("*.jpg"))) for c in config.CLASSES}
