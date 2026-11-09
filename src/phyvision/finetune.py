@@ -12,6 +12,7 @@ AI assistance: this fine-tuning pipeline was developed with help from
 Claude, an AI model by Anthropic, for educational purposes (learning how to
 train a vision model).
 """
+
 from __future__ import annotations
 
 import argparse
@@ -26,7 +27,6 @@ from .config import CHECKPOINT, CLASSES, REPORTS_DIR, VERSION
 from .dataset import SilhouetteDataset
 from .model import PhyNet
 from .train import run_epoch
-
 
 def main(argv=None):
     ap = argparse.ArgumentParser()
@@ -92,7 +92,6 @@ def main(argv=None):
               f"val segmenter {sa:.4f}  {time.time() - t0:.0f}s{flag}", flush=True)
         hist_path.write_text(json.dumps(history, indent=1))
     print("Done. Best combined validation score", round(best, 4))
-
 
 if __name__ == "__main__":
     main()
