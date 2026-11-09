@@ -10,6 +10,7 @@ Mask sources, in priority order:
   2. rembg with the `u2net_human_seg` model (best for real photos, optional)
   3. OpenCV GrabCut (offline fallback, works best on plain backgrounds)
 """
+
 from __future__ import annotations
 
 import numpy as np
@@ -19,7 +20,6 @@ from .config import SIL_SIZE, PROFILE_BINS
 
 _REMBG_SESSION = None
 _REMBG_STATE = None  # None = untested, True = available, False = unavailable
-
 
 # Segmentation
 def rembg_available() -> bool:
@@ -31,7 +31,6 @@ def rembg_available() -> bool:
         except Exception:
             _REMBG_STATE = False
     return _REMBG_STATE
-
 
 def _mask_rembg(rgb: np.ndarray) -> np.ndarray | None:
     global _REMBG_SESSION, _REMBG_STATE
@@ -50,7 +49,6 @@ def _mask_rembg(rgb: np.ndarray) -> np.ndarray | None:
         _REMBG_STATE = False  # e.g. model download blocked; don't retry every call
         return None
 
-
 def _grabcut_once(rgb: np.ndarray) -> np.ndarray:
     h, w = rgb.shape[:2]
     bgr = cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)
@@ -59,7 +57,6 @@ def _grabcut_once(rgb: np.ndarray) -> np.ndarray:
     bgd, fgd = np.zeros((1, 65), np.float64), np.zeros((1, 65), np.float64)
     cv2.grabCut(bgr, mask, rect, bgd, fgd, 6, cv2.GC_INIT_WITH_RECT)
     return np.where((mask == cv2.GC_FGD) | (mask == cv2.GC_PR_FGD), 255, 0).astype(np.uint8)
-
 
 def _mask_grabcut(rgb: np.ndarray) -> np.ndarray:
     """Two-pass GrabCut: a loose first pass, then a second pass restricted to a
@@ -88,7 +85,6 @@ def _mask_grabcut(rgb: np.ndarray) -> np.ndarray:
         fg = cv2.resize(fg, (w, h), interpolation=cv2.INTER_NEAREST)
     return fg
 
-
 def extract_mask(img: np.ndarray, method: str = "auto") -> tuple[np.ndarray, str]:
     """img: HxWx3 RGB or HxWx4 RGBA uint8. Returns (mask 0/255, method used)."""
     if img.ndim == 3 and img.shape[2] == 4:
@@ -101,7 +97,6 @@ def extract_mask(img: np.ndarray, method: str = "auto") -> tuple[np.ndarray, str
         if m is not None and m.mean() > 2:
             return clean_mask(m), "rembg"
     return clean_mask(_mask_grabcut(img)), "grabcut"
-
 
 def clean_mask(mask: np.ndarray) -> np.ndarray:
     """Keep the person (largest blob + attached limbs), fill holes, smooth edges."""
@@ -127,14 +122,12 @@ def clean_mask(mask: np.ndarray) -> np.ndarray:
             m[lab == i] = 1
     return m * 255
 
-
 # Normalisation + descriptors
 def crop_to_person(mask: np.ndarray) -> np.ndarray | None:
     ys, xs = np.nonzero(mask > 127)
     if len(ys) < 50:
         return None
     return (mask[ys.min():ys.max() + 1, xs.min():xs.max() + 1] > 127).astype(np.uint8)
-
 
 def normalise(mask: np.ndarray, size: int = SIL_SIZE) -> np.ndarray | None:
     """Crop the silhouette, scale so the body height spans 94% of a square
@@ -152,7 +145,6 @@ def normalise(mask: np.ndarray, size: int = SIL_SIZE) -> np.ndarray | None:
     canvas[y0:y0 + nh, x0:x0 + nw] = res
     return canvas
 
-
 def _central_run(row: np.ndarray, cx: int) -> int:
     idx = np.nonzero(row)[0]
     if len(idx) == 0:
@@ -165,7 +157,6 @@ def _central_run(row: np.ndarray, cx: int) -> int:
     while r + 1 < len(row) and row[r + 1]:
         r += 1
     return r - l + 1
-
 
 def shape_profile(mask: np.ndarray, bins: int = PROFILE_BINS) -> np.ndarray | None:
     """Height-normalised width profile: for each of `bins` horizontal bands we
@@ -189,7 +180,6 @@ def shape_profile(mask: np.ndarray, bins: int = PROFILE_BINS) -> np.ndarray | No
     hull_area = sum(cv2.contourArea(cv2.convexHull(c)) for c in cnts) or 1.0
     glob = np.array([w / h, area / (w * h), area / (h * h) * 4, min(1.0, area / hull_area)], np.float32)
     return np.concatenate([total * 4, central * 4, glob]).astype(np.float32)
-
 
 def body_metrics(mask: np.ndarray, visible: float = 1.0) -> dict:
     """Human-readable proportion estimates from the silhouette (2-D, frontal).
@@ -242,7 +232,6 @@ def body_metrics(mask: np.ndarray, visible: float = 1.0) -> dict:
         "arms_separate": arms_free,
         "reliable": reliable,
     }
-
 
 def overlay(rgb: np.ndarray, mask: np.ndarray, colour=(56, 189, 248)) -> np.ndarray:
     """Tint the detected person and draw its outline (for the UI)."""
