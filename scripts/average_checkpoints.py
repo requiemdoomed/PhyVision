@@ -24,6 +24,7 @@ def main():
     a = ap.parse_args()
     cks = [torch.load(p, map_location="cpu", weights_only=False) for p in a.checkpoints]
     avg = {}
+    
     for k, v in cks[0]["state_dict"].items():
         if v.is_floating_point():
             avg[k] = sum(c["state_dict"][k].float() for c in cks) / len(cks)
