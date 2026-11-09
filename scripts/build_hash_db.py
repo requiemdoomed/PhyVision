@@ -1,4 +1,5 @@
 """Build models/train_hashes.json (MD5 of every training image) for the integrity check."""
+
 import sys
 from pathlib import Path
 
