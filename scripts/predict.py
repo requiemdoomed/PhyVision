@@ -2,6 +2,7 @@
 
     python scripts/predict.py path/to/photo.jpg [--mask mask.png] [--seg grabcut|rembg|auto]
 """
+
 import argparse
 import json
 import sys
@@ -11,7 +12,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from phyvision.guides import guide_for  # noqa: E402
 from phyvision.inference import Predictor  # noqa: E402
-
 
 def main():
     ap = argparse.ArgumentParser()
@@ -33,7 +33,6 @@ def main():
     print(f"\nFitness guide: {g['title']} - {g['tagline']}\n{g['summary']}")
     for t in g["goals"]:
         print("  -", t)
-
 
 if __name__ == "__main__":
     main()
