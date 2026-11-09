@@ -8,6 +8,7 @@ also works in offline/static mode.
     python scripts/make_demos.py            # render images + run predictions
     python scripts/make_demos.py --no-predict
 """
+
 import argparse
 import json
 import sys
@@ -37,7 +38,6 @@ DEMOS = [
     ("ethan_brooks", "Ethan Brooks", "athletic", "male", 646, dict(framing=("thigh", 0.64), pose="one_flex", out_w=760)),
     ("anika_rai", "Anika Rai", "normal", "female", 511, dict(framing=("knees", 0.78), pose="down")),
 ]
-
 
 def main():
     ap = argparse.ArgumentParser()
@@ -72,7 +72,6 @@ def main():
             d["silhouette"] = f"demo/{d['id']}_silhouette.png"
             print(f"{d['name']:16s} -> {r['label']:9s} {r['confidence'] * 100:5.1f}%")
     (DEMO_DIR / "demos.json").write_text(json.dumps(out, indent=2))
-
 
 if __name__ == "__main__":
     main()
