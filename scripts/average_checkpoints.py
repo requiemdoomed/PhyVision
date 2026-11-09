@@ -33,6 +33,7 @@ def main():
             avg[k] = cks[-1]["state_dict"][k]
     torch.save({"state_dict": avg, "classes": CLASSES, "version": VERSION,
                 "epoch": cks[-1].get("epoch"), "averaged_from": [Path(p).name for p in a.checkpoints]}, a.out)
+    
     print(f"Averaged {len(cks)} checkpoints -> {a.out}")
 
 if __name__ == "__main__":
