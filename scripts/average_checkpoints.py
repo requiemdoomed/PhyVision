@@ -17,7 +17,6 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from phyvision.config import CLASSES, VERSION  # noqa: E402
 
-
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("checkpoints", nargs="+")
@@ -34,7 +33,6 @@ def main():
     torch.save({"state_dict": avg, "classes": CLASSES, "version": VERSION,
                 "epoch": cks[-1].get("epoch"), "averaged_from": [Path(p).name for p in a.checkpoints]}, a.out)
     print(f"Averaged {len(cks)} checkpoints -> {a.out}")
-
 
 if __name__ == "__main__":
     main()
