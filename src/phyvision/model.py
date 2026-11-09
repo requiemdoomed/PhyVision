@@ -15,7 +15,6 @@ from torchvision.models import resnet18
 
 from .config import CLASSES, PROFILE_DIM
 
-
 class PhyNet(nn.Module):
     def __init__(self, num_classes: int = len(CLASSES), profile_dim: int = PROFILE_DIM):
         super().__init__()
