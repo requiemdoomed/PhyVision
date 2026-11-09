@@ -1,5 +1,6 @@
 """Central configuration for PhyVision.
 """
+
 from pathlib import Path
 
 PROJECT_NAME = "PhyVision"
