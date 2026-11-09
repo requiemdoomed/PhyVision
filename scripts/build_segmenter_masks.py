@@ -36,6 +36,7 @@ def main():
         raise SystemExit("rembg is not installed: pip install -r requirements.txt")
     seg = _mask_rembg if a.method == "rembg" else _mask_grabcut
     t0, n, skipped = time.time(), 0, 0
+    
     for c in CLASSES:
         files = sorted((DATA_DIR / a.split / c).glob("*.jpg"))[a.start:a.start + a.count]
         for f in files:
