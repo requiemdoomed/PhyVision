@@ -5,7 +5,7 @@
 <h1 align="center">PhyVision</h1>
 
 <p align="center">
-  <strong>Human physique classification from a single photo, with a fitness guide for every result.</strong><br>
+  <strong>Human Physique Identification and Classification with Fitness Guidance</strong><br>
   Created and authored by <strong>Swayam Shakya</strong>
 </p>
 
