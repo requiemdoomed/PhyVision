@@ -31,7 +31,6 @@ CLASS_SEED = {c: i * 1_000_000 for i, c in enumerate(CLASSES)}
 FIELDS = ["file", "label", "sex", "framing", "visible", "arm_pose", "arm_left", "arm_right", "turn",
           "top", "bottom", "background", "width", "height", "shoulder_waist_ratio", "waist_hip_ratio", "seed"]
 
-
 def _job(args):
     split, label, idx, out_dir = args
     seed = SPLIT_SEED[split] + CLASS_SEED[label] + idx
@@ -43,7 +42,6 @@ def _job(args):
     row = {k: meta.get(k, "") for k in FIELDS}
     row.update(file=f"{label}/{name}.jpg", seed=seed, width=img.shape[1], height=img.shape[0])
     return row
-
 
 def main():
     ap = argparse.ArgumentParser()
@@ -70,7 +68,6 @@ def main():
                 w.writerows(rows)
             print(f"[{split}] {len(rows)} images ({n} per class)  t={time.time() - t0:.0f}s", flush=True)
     print("Dataset ready at", a.out)
-
 
 if __name__ == "__main__":
     main()
