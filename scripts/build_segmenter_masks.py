@@ -9,6 +9,7 @@ The test split is never processed here.
 
     python scripts/build_segmenter_masks.py --method grabcut --split train --start 0 --count 500
 """
+
 import argparse
 import sys
 import time
@@ -21,7 +22,6 @@ import cv2  # noqa: E402
 
 from phyvision.config import CLASSES, DATA_DIR  # noqa: E402
 from phyvision.silhouette import _mask_grabcut, _mask_rembg, clean_mask, rembg_available  # noqa: E402
-
 
 def main():
     ap = argparse.ArgumentParser()
@@ -49,7 +49,6 @@ def main():
             cv2.imwrite(str(out), m, [cv2.IMWRITE_PNG_COMPRESSION, 9])
             n += 1
         print(f"[{a.method}/{a.split}] {c} done, {n} masks, {skipped} skipped, {time.time() - t0:.0f}s", flush=True)
-
 
 if __name__ == "__main__":
     main()
