@@ -7,6 +7,7 @@ Two evaluations are run:
      scratch with the offline GrabCut fallback, exactly as an uploaded photo
      would be, and then classified (measures the end-to-end system).
 """
+
 from __future__ import annotations
 
 import argparse
@@ -30,7 +31,6 @@ from .inference import Predictor  # noqa: E402
 INK = "#1f2937"
 PALETTE = {"athletic": "#d97706", "normal": "#059669", "obese": "#db2777", "skinny": "#0284c7"}
 
-
 def _report(y, p):
     rep = classification_report(y, p, labels=list(range(len(CLASSES))), target_names=CLASSES,
                                 output_dict=True, zero_division=0)
@@ -40,7 +40,6 @@ def _report(y, p):
             "macro_f1": rep["macro avg"]["f1-score"],
             "weighted_f1": rep["weighted avg"]["f1-score"],
             "confusion_matrix": cm.tolist(), "n": int(len(y))}
-
 
 def plot_confusion(cm, title, path):
     cm = np.array(cm)
@@ -62,7 +61,6 @@ def plot_confusion(cm, title, path):
     fig.tight_layout()
     fig.savefig(path)
     plt.close(fig)
-
 
 def plot_history(path_json, path_png):
     try:
@@ -97,14 +95,12 @@ def plot_history(path_json, path_png):
     fig.savefig(path_png)
     plt.close(fig)
 
-
 def main(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--photo-subset", type=int, default=150, help="test JPEGs per class for the photo-pipeline eval")
     ap.add_argument("--no-rembg", action="store_true", help="skip the rembg photo-pipeline evaluation")
     a = ap.parse_args(argv)
     REPORTS_DIR.mkdir(exist_ok=True)
-
     pred = Predictor(CHECKPOINT)
     model = pred.model
 
@@ -181,7 +177,6 @@ def main(argv=None):
                        REPORTS_DIR / "confusion_matrix_rembg_pipeline.png")
     plot_history(REPORTS_DIR / "history.json", REPORTS_DIR / "training_curves.png")
     print("Wrote", METRICS_JSON)
-
 
 if __name__ == "__main__":
     main()
