@@ -10,6 +10,7 @@ Usage:
     python scripts/generate_dataset.py                  # default 2000/1000/1000 per class
     python scripts/generate_dataset.py --train 300 --val 100 --test 100   # quick version
 """
+
 import argparse
 import csv
 import sys
