@@ -13,6 +13,7 @@ The test split is never processed here.
 import argparse
 import sys
 import time
+
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -30,6 +31,7 @@ def main():
     ap.add_argument("--start", type=int, default=0)
     ap.add_argument("--count", type=int, default=500)
     a = ap.parse_args()
+    
     if a.method == "rembg" and not rembg_available():
         raise SystemExit("rembg is not installed: pip install -r requirements.txt")
     seg = _mask_rembg if a.method == "rembg" else _mask_grabcut
